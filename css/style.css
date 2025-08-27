@@ -565,6 +565,90 @@ button:hover ~ #art-cursor,
   margin-bottom: var(--space-4);
 }
 
+/* About Highlight Section - Modern Design */
+.about-highlight {
+  margin: 2rem 0;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-highlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #4ade80, #38a169, #2f855a);
+}
+
+.highlight-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.highlight-icon {
+  font-size: 2rem;
+  filter: grayscale(0.2);
+}
+
+.highlight-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0;
+}
+
+.highlight-content {
+  display: grid;
+  gap: 1rem;
+}
+
+.achievement-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.achievement-item:last-child {
+  border-bottom: none;
+}
+
+.achievement-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  min-width: 80px;
+  text-align: center;
+  padding: 0.4rem 0.8rem;
+  background: rgba(74, 222, 128, 0.1);
+  border-radius: 12px;
+ 
+}
+
+.achievement-value {
+  flex: 1;
+  font-size: 0.95rem;
+  color: #374151;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.about-conclusion {
+  font-weight: 600;
+  color: #1a202c;
+  margin-top: 1.5rem;
+}
+
 .skills-title,
 .timeline-title {
   font-size: var(--text-2xl);
@@ -828,6 +912,38 @@ button:hover ~ #art-cursor,
   
   .about-name {
     font-size: var(--text-2xl);
+  }
+
+  .about-highlight {
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .highlight-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .highlight-title {
+    font-size: 1.2rem;
+  }
+
+  .achievement-item {
+    flex-direction: column;
+    gap: 0.8rem;
+    text-align: center;
+    padding: 0.8rem 0;
+  }
+
+  .achievement-label {
+    min-width: auto;
+    align-self: center;
+  }
+
+  .achievement-value {
+    font-size: 0.9rem;
   }
 }
 
@@ -1544,17 +1660,13 @@ button:hover ~ #art-cursor,
 
 .parallax-subtitle-left,
 .parallax-subtitle-right {
-  font-size: 1.8rem;
-  color: #11311c;
-  font-weight: 600;
+  font-size: 2.2rem;
+  color: #E8E3D3;
+  font-weight: 700;
   transition: transform 0.1s ease-out;
   margin: 0;
   letter-spacing: 0.05em;
-   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7), 0 0 20px rgba(72, 187, 120, 0.3); 
-   background: linear-gradient(90deg, #015109 30%, #025420 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text; 
+  opacity: 0.95;
 }
 
 .parallax-hero-section .content-section {
@@ -1578,6 +1690,120 @@ button:hover ~ #art-cursor,
   color: #334155;
 }
 
+/* 私の3つの強み - モダンデザイン */
+.parallax-hero-section .strengths-section {
+  margin-top: 5rem;
+  padding-top: 0;
+}
+
+.parallax-hero-section .strengths-title {
+  font-size: 2rem;
+  font-weight: 300;
+  color: #334155;
+  text-align: center;
+  margin-bottom: 4rem;
+  letter-spacing: 0.1em;
+  position: relative;
+}
+
+.parallax-hero-section .strengths-title::after {
+  content: '';
+  position: absolute;
+  bottom: -1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, #4ade80, #38a169);
+  border-radius: 1px;
+}
+
+.parallax-hero-section .strengths-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.parallax-hero-section .strength-item {
+  text-align: center;
+  padding: 2.5rem 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  border: none;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+.parallax-hero-section .strength-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #4ade80, #38a169, #2f855a);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.parallax-hero-section .strength-item:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 1);
+}
+
+.parallax-hero-section .strength-item:hover::before {
+  opacity: 1;
+}
+
+.parallax-hero-section .strength-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  display: block;
+  filter: grayscale(0.3);
+  transition: all 0.3s ease;
+}
+
+.parallax-hero-section .strength-item:hover .strength-icon {
+  transform: scale(1.1);
+  filter: grayscale(0);
+}
+
+.parallax-hero-section .strength-content {
+  width: 100%;
+}
+
+.parallax-hero-section .strength-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin-bottom: 0.8rem;
+  line-height: 1.4;
+  transition: color 0.3s ease;
+}
+
+.parallax-hero-section .strength-item:hover .strength-title {
+  color: #38a169;
+}
+
+.parallax-hero-section .strength-description {
+  font-size: 0.9rem;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 400;
+  transition: color 0.3s ease;
+}
+
+.parallax-hero-section .strength-item:hover .strength-description {
+  color: #4a5568;
+}
+
 .parallax-hero-section .content-title {
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 700;
@@ -1592,11 +1818,10 @@ button:hover ~ #art-cursor,
 }
 
 .parallax-hero-section .content-text {
-  font-size: 1.2rem;
-  line-height: 1.9;
-  margin-bottom: 2rem;
-  color: #475569;
-  font-weight: 400;
+  font-size: 1.5rem;
+    line-height: 1.9;
+    /* margin-bottom: 2rem; */
+    font-weight: 600;
 }
 
 .parallax-hero-section .hero-actions {
@@ -1622,11 +1847,44 @@ button:hover ~ #art-cursor,
   
   .parallax-subtitle-left,
   .parallax-subtitle-right {
-    font-size: 1.4rem;
+    font-size: 1.8rem;
   }
   
   .content-section {
     padding: 4rem 1.5rem;
+  }
+
+  .parallax-hero-section .strengths-section {
+    margin-top: 4rem;
+  }
+
+  .parallax-hero-section .strengths-title {
+    font-size: 1.6rem;
+    margin-bottom: 3rem;
+  }
+
+  .parallax-hero-section .strengths-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 400px;
+  }
+
+  .parallax-hero-section .strength-item {
+    padding: 2rem 1.5rem;
+  }
+
+  .parallax-hero-section .strength-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .parallax-hero-section .strength-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .parallax-hero-section .strength-description {
+    font-size: 0.9rem;
   }
   
   .parallax-hero-section .content-text {
