@@ -640,6 +640,64 @@ button:hover ~ #art-cursor,
   margin: 0;
 }
 
+/* ===== PRICINGセクション ===== */
+.pricing-section {
+  background: var(--color-light-gray);
+  padding: var(--space-20) 0;
+}
+
+.pricing-note {
+  font-size: var(--text-sm);
+  color: var(--color-warm-gray);
+  text-align: center;
+  margin-top: var(--space-4);
+  font-style: italic;
+}
+
+.pricing-table {
+  max-width: 800px;
+  margin: var(--space-16) auto 0;
+  background: var(--color-white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  border: 1px solid var(--color-cool-gray);
+}
+
+.pricing-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-6) var(--space-8);
+  border-bottom: 1px solid var(--color-cool-gray);
+  transition: var(--transition);
+}
+
+.pricing-item:last-child {
+  border-bottom: none;
+}
+
+.pricing-item:hover {
+  background: rgba(56, 161, 105, 0.03);
+}
+
+.pricing-service {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-charcoal);
+  margin: 0;
+  flex: 1;
+}
+
+.pricing-cost {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-primary-green);
+  margin: 0;
+  min-width: 140px;
+  text-align: right;
+}
+
 /* ===== フッター ===== */
 
 /* ===== レスポンシブデザイン ===== */
@@ -716,6 +774,28 @@ button:hover ~ #art-cursor,
   
   .timeline-item::before {
     left: -32px;
+  }
+  
+  /* Pricing responsive styles */
+  .pricing-table {
+    margin: var(--space-12) var(--space-4) 0;
+  }
+  
+  .pricing-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-6);
+  }
+  
+  .pricing-service {
+    font-size: var(--text-base);
+  }
+  
+  .pricing-cost {
+    font-size: var(--text-lg);
+    text-align: left;
+    min-width: auto;
   }
 }
 
