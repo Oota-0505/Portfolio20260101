@@ -261,6 +261,13 @@ const workList = [
     img: './images/Screenshot 2025-07-13 at 8.58.05.png',
     link: './work5.html',
   },
+  {
+    id: 'work12.html',
+    title: '五料産業株式会社様<br>コーポレートサイト制作',
+    desc: 'Figmaで作成されたデザインを忠実に再現。2つのデザイン案を実装',
+    img: './images/Screenshot 2025-12-30 at 5.31.09.png',
+    link: './work12.html',
+  },
 ];
 
 function renderOtherWorksSlider(currentId) {

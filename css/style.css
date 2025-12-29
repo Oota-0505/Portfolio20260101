@@ -370,6 +370,8 @@ button:hover ~ #art-cursor,
 .section-header {
   text-align: center;
   margin-bottom: var(--space-16);
+  position: relative;
+  padding: var(--space-12) 0;
 }
 
 .section-title {
@@ -379,6 +381,7 @@ button:hover ~ #art-cursor,
   color: var(--color-charcoal);
   margin-bottom: var(--space-4);
   position: relative;
+  z-index: 2;
 }
 
 .section-title::after {
@@ -399,6 +402,50 @@ button:hover ~ #art-cursor,
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.8;
+  position: relative;
+  z-index: 2;
+}
+
+/* マーキー背景テキスト（画面全体） */
+.marquee-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.marquee-text {
+  display: flex;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee 25s linear infinite;
+}
+
+.marquee-text span {
+  font-family: 'Inter', sans-serif;
+  font-size: 12vw;
+  font-weight: 900;
+  color: rgba(74, 222, 128, 0.06);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding-right: 0.3em;
+  flex-shrink: 0;
+}
+
+@keyframes marquee {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+/* モーション軽減設定 */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-text {
+    animation: none;
+  }
 }
 
 /* ===== WORKSセクション ===== */
@@ -750,6 +797,8 @@ button:hover ~ #art-cursor,
   text-align: center;
   margin-top: var(--space-4);
   font-style: italic;
+  position: relative;
+  z-index: 2;
 }
 
 .pricing-table {
