@@ -746,69 +746,71 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ===== パララックス効果強化 =====
+    // ===== パララックス効果強化（リファクタリング・最適化） =====
     
-    // スクロール連動パララックス
+    // スクロール連動パララックス（滑らかに）
     let ticking = false;
+    let lastScrollY = window.pageYOffset;
     
     function updateParallax() {
         const scrolled = window.pageYOffset;
+        const scrollDelta = scrolled - lastScrollY;
+        lastScrollY = scrolled;
         
-        // パララックス要素
+        // パララックス要素（控えめな動き）
         const parallaxElements = document.querySelectorAll('.parallax-element');
         parallaxElements.forEach((element, index) => {
-            const speed = element.dataset.speed || (0.3 + index * 0.1);
+            const speed = parseFloat(element.dataset.speed) || (0.2 + index * 0.05);
             const yPos = -(scrolled * speed);
-            element.style.transform = `translateY(${yPos}px)`;
+            element.style.transform = `translate3d(0, ${yPos}px, 0)`;
         });
 
-        // パララックス背景
+        // パララックス背景（控えめな動き）
         const parallaxBgs = document.querySelectorAll('.parallax-section-bg');
         parallaxBgs.forEach(bg => {
-            const speed = bg.dataset.speed || 0.5;
+            const speed = parseFloat(bg.dataset.speed) || 0.3;
             const yPos = scrolled * speed;
-            bg.style.transform = `translateY(${yPos}px)`;
+            bg.style.transform = `translate3d(0, ${yPos}px, 0)`;
         });
 
-        // パララックス画像
+        // パララックス画像（ビューポート内のみ）
         const parallaxImgs = document.querySelectorAll('.parallax-img');
         parallaxImgs.forEach(img => {
-            const speed = img.dataset.speed || 0.2;
+            const speed = parseFloat(img.dataset.speed) || 0.15;
             const rect = img.getBoundingClientRect();
-            const inView = rect.top < window.innerHeight && rect.bottom > 0;
+            const inView = rect.top < window.innerHeight + 100 && rect.bottom > -100;
             if (inView) {
                 const yPos = (rect.top - window.innerHeight / 2) * speed;
-                img.style.transform = `translateY(${yPos}px) scale(1)`;
+                img.style.transform = `translate3d(0, ${yPos}px, 0) scale(1)`;
             }
         });
 
-        // パララックスレイヤー
+        // パララックスレイヤー（より細かく制御）
         const layerFront = document.querySelectorAll('.parallax-layer-front');
         const layerMid = document.querySelectorAll('.parallax-layer-mid');
         const layerBack = document.querySelectorAll('.parallax-layer-back');
 
         layerFront.forEach(el => {
-            const yPos = scrolled * 0.1;
+            const yPos = scrolled * 0.05;
             el.style.transform = `translate3d(0, ${yPos}px, 0)`;
         });
 
         layerMid.forEach(el => {
-            const yPos = scrolled * 0.3;
+            const yPos = scrolled * 0.2;
             el.style.transform = `translate3d(0, ${yPos}px, 0)`;
         });
 
         layerBack.forEach(el => {
-            const yPos = scrolled * 0.5;
+            const yPos = scrolled * 0.35;
             el.style.transform = `translate3d(0, ${yPos}px, 0)`;
         });
 
-        // セクション背景パララックス
-        const sectionsWithParallax = document.querySelectorAll('.section-with-parallax::before');
+        // セクション背景パララックス（ビューポート内のみ）
         document.querySelectorAll('.section-with-parallax').forEach(section => {
             const rect = section.getBoundingClientRect();
             const inView = rect.top < window.innerHeight && rect.bottom > 0;
             if (inView) {
-                const offset = (rect.top - window.innerHeight / 2) * 0.1;
+                const offset = (rect.top - window.innerHeight / 2) * 0.05;
                 section.style.setProperty('--parallax-offset', `${offset}px`);
             }
         });
@@ -823,46 +825,80 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    window.addEventListener('scroll', requestParallaxUpdate);
+    // スロットル処理でパフォーマンス向上
+    window.addEventListener('scroll', requestParallaxUpdate, { passive: true });
     
     // 初回実行
     updateParallax();
 
-    // ===== マウス追従パララックス =====
-    let mouseX = 0;
-    let mouseY = 0;
+    // ===== マウス追従パララックス（滑らかに・動きを抑える） =====
+    let mouseX = 0.5;
+    let mouseY = 0.5;
+    let currentMouseX = 0.5;
+    let currentMouseY = 0.5;
     let mouseUpdateTicking = false;
 
     function updateMouseParallax() {
+        // イージングで滑らかに
+        currentMouseX += (mouseX - currentMouseX) * 0.08;
+        currentMouseY += (mouseY - currentMouseY) * 0.08;
+
         const mouseParallaxElements = document.querySelectorAll('.mouse-parallax');
 
         mouseParallaxElements.forEach((element, index) => {
-            const depth = element.dataset.depth || (index + 1) * 8;
-            const moveX = (mouseX - 0.5) * depth;
-            const moveY = (mouseY - 0.5) * depth;
-            element.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            const depth = parseFloat(element.dataset.depth) || (index + 1) * 5; // 動きを抑える（8→5）
+            const moveX = (currentMouseX - 0.5) * depth;
+            const moveY = (currentMouseY - 0.5) * depth;
+            element.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
         });
 
-        mouseUpdateTicking = false;
+        // まだ目標値に達していない場合は継続
+        if (Math.abs(mouseX - currentMouseX) > 0.001 || Math.abs(mouseY - currentMouseY) > 0.001) {
+            requestAnimationFrame(updateMouseParallax);
+        } else {
+            mouseUpdateTicking = false;
+        }
     }
 
     function requestMouseUpdate() {
         if (!mouseUpdateTicking) {
-            window.requestAnimationFrame(updateMouseParallax);
             mouseUpdateTicking = true;
+            requestAnimationFrame(updateMouseParallax);
         }
     }
 
+    // デバウンス処理で最適化
     document.addEventListener('mousemove', function(e) {
         mouseX = e.clientX / window.innerWidth;
         mouseY = e.clientY / window.innerHeight;
         requestMouseUpdate();
-    });
+    }, { passive: true });
 
-    // ===== ワークカード3Dティルト効果 =====
+    // ===== ワークカード3Dティルト効果（動きを抑えた滑らかな効果） =====
     const workCards = document.querySelectorAll('.work-card');
     workCards.forEach(card => {
         card.classList.add('tilt-3d');
+        
+        let cardTiltTicking = false;
+        let currentRotateX = 0;
+        let currentRotateY = 0;
+        let targetRotateX = 0;
+        let targetRotateY = 0;
+
+        function smoothTilt() {
+            // イージング効果でスムーズに
+            currentRotateX += (targetRotateX - currentRotateX) * 0.1;
+            currentRotateY += (targetRotateY - currentRotateY) * 0.1;
+
+            card.style.transform = `perspective(1000px) rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg) translateY(-8px) scale(1.01) translateZ(0)`;
+
+            // 目標値に近づいていない場合は継続
+            if (Math.abs(targetRotateX - currentRotateX) > 0.1 || Math.abs(targetRotateY - currentRotateY) > 0.1) {
+                requestAnimationFrame(smoothTilt);
+            } else {
+                cardTiltTicking = false;
+            }
+        }
         
         card.addEventListener('mousemove', function(e) {
             if (window.innerWidth <= 768) return; // モバイルではスキップ
@@ -874,14 +910,36 @@ document.addEventListener('DOMContentLoaded', () => {
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
 
-            const rotateX = (y - centerY) / 12;
-            const rotateY = (centerX - x) / 12;
+            // 動きを抑える（除数を大きく：12 → 20）
+            targetRotateX = (y - centerY) / 20;
+            targetRotateY = (centerX - x) / 20;
 
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-12px) scale(1.02)`;
+            // 最大角度を制限（±3度まで）
+            targetRotateX = Math.max(-3, Math.min(3, targetRotateX));
+            targetRotateY = Math.max(-3, Math.min(3, targetRotateY));
+
+            if (!cardTiltTicking) {
+                cardTiltTicking = true;
+                requestAnimationFrame(smoothTilt);
+            }
         });
 
         card.addEventListener('mouseleave', function() {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)';
+            targetRotateX = 0;
+            targetRotateY = 0;
+            
+            function resetTilt() {
+                currentRotateX += (0 - currentRotateX) * 0.15;
+                currentRotateY += (0 - currentRotateY) * 0.15;
+                
+                card.style.transform = `perspective(1000px) rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg) translateY(0) scale(1) translateZ(0)`;
+                
+                if (Math.abs(currentRotateX) > 0.1 || Math.abs(currentRotateY) > 0.1) {
+                    requestAnimationFrame(resetTilt);
+                }
+            }
+            
+            requestAnimationFrame(resetTilt);
         });
     });
 
