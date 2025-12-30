@@ -1072,6 +1072,11 @@ button:hover ~ #art-cursor,
     text-align: left;
     min-width: auto;
   }
+  
+  /* カタログセクション レスポンシブ */
+  .timeline-content div[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
 }
 
 @media (max-width: 480px) {
