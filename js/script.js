@@ -671,5 +671,277 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+    
+    // ===== モダンアニメーション & パララックス強化 =====
+    
+    // スクロール進行バー
+    function initScrollProgress() {
+        const progressBar = document.createElement('div');
+        progressBar.className = 'scroll-progress';
+        document.body.appendChild(progressBar);
+
+        window.addEventListener('scroll', function() {
+            const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolled = (window.pageYOffset / windowHeight) * 100;
+            progressBar.style.width = scrolled + '%';
+        });
+    }
+    
+    initScrollProgress();
+
+    // Intersection Observer でスクロールアニメーション（強化版）
+    const modernObserverOptions = {
+        threshold: 0.15,
+        rootMargin: '0px 0px -80px 0px'
+    };
+
+    const modernObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                
+                // ストラグルアニメーション用の遅延
+                if (entry.target.classList.contains('stagger-item')) {
+                    const parent = entry.target.parentElement;
+                    const siblings = Array.from(parent.querySelectorAll('.stagger-item'));
+                    const index = siblings.indexOf(entry.target);
+                    entry.target.style.transitionDelay = `${index * 0.1}s`;
+                }
+            }
+        });
+    }, modernObserverOptions);
+
+    // アニメーション対象要素を監視
+    const animatedElements = document.querySelectorAll(
+        '.fade-in-up, .fade-in-left, .fade-in-right, .scale-in, .rotate-in, .stagger-item, .blur-in, .slide-up-strong, .scroll-reveal'
+    );
+    animatedElements.forEach(el => modernObserver.observe(el));
+
+    // セクションヘッダーにアニメーションクラスを追加
+    const sectionHeaders = document.querySelectorAll('.section-header');
+    sectionHeaders.forEach(header => {
+        if (!header.classList.contains('fade-in-up')) {
+            header.classList.add('fade-in-up');
+            modernObserver.observe(header);
+        }
+    });
+
+    // タイムラインアイテムにアニメーションクラスを追加
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    timelineItems.forEach((item, index) => {
+        item.classList.add('fade-in-left');
+        item.style.transitionDelay = `${index * 0.15}s`;
+        modernObserver.observe(item);
+    });
+
+    // ストラグルアニメーション用（ワークグリッドなど）
+    const staggerContainers = document.querySelectorAll('.works-grid, .strengths-grid');
+    staggerContainers.forEach(container => {
+        const items = container.querySelectorAll('.work-card, .strength-item');
+        items.forEach((item) => {
+            if (!item.classList.contains('stagger-item')) {
+                item.classList.add('stagger-item');
+                modernObserver.observe(item);
+            }
+        });
+    });
+
+    // ===== パララックス効果強化 =====
+    
+    // スクロール連動パララックス
+    let ticking = false;
+    
+    function updateParallax() {
+        const scrolled = window.pageYOffset;
+        
+        // パララックス要素
+        const parallaxElements = document.querySelectorAll('.parallax-element');
+        parallaxElements.forEach((element, index) => {
+            const speed = element.dataset.speed || (0.3 + index * 0.1);
+            const yPos = -(scrolled * speed);
+            element.style.transform = `translateY(${yPos}px)`;
+        });
+
+        // パララックス背景
+        const parallaxBgs = document.querySelectorAll('.parallax-section-bg');
+        parallaxBgs.forEach(bg => {
+            const speed = bg.dataset.speed || 0.5;
+            const yPos = scrolled * speed;
+            bg.style.transform = `translateY(${yPos}px)`;
+        });
+
+        // パララックス画像
+        const parallaxImgs = document.querySelectorAll('.parallax-img');
+        parallaxImgs.forEach(img => {
+            const speed = img.dataset.speed || 0.2;
+            const rect = img.getBoundingClientRect();
+            const inView = rect.top < window.innerHeight && rect.bottom > 0;
+            if (inView) {
+                const yPos = (rect.top - window.innerHeight / 2) * speed;
+                img.style.transform = `translateY(${yPos}px) scale(1)`;
+            }
+        });
+
+        // パララックスレイヤー
+        const layerFront = document.querySelectorAll('.parallax-layer-front');
+        const layerMid = document.querySelectorAll('.parallax-layer-mid');
+        const layerBack = document.querySelectorAll('.parallax-layer-back');
+
+        layerFront.forEach(el => {
+            const yPos = scrolled * 0.1;
+            el.style.transform = `translate3d(0, ${yPos}px, 0)`;
+        });
+
+        layerMid.forEach(el => {
+            const yPos = scrolled * 0.3;
+            el.style.transform = `translate3d(0, ${yPos}px, 0)`;
+        });
+
+        layerBack.forEach(el => {
+            const yPos = scrolled * 0.5;
+            el.style.transform = `translate3d(0, ${yPos}px, 0)`;
+        });
+
+        // セクション背景パララックス
+        const sectionsWithParallax = document.querySelectorAll('.section-with-parallax::before');
+        document.querySelectorAll('.section-with-parallax').forEach(section => {
+            const rect = section.getBoundingClientRect();
+            const inView = rect.top < window.innerHeight && rect.bottom > 0;
+            if (inView) {
+                const offset = (rect.top - window.innerHeight / 2) * 0.1;
+                section.style.setProperty('--parallax-offset', `${offset}px`);
+            }
+        });
+
+        ticking = false;
+    }
+
+    function requestParallaxUpdate() {
+        if (!ticking) {
+            window.requestAnimationFrame(updateParallax);
+            ticking = true;
+        }
+    }
+
+    window.addEventListener('scroll', requestParallaxUpdate);
+    
+    // 初回実行
+    updateParallax();
+
+    // ===== マウス追従パララックス =====
+    let mouseX = 0;
+    let mouseY = 0;
+    let mouseUpdateTicking = false;
+
+    function updateMouseParallax() {
+        const mouseParallaxElements = document.querySelectorAll('.mouse-parallax');
+
+        mouseParallaxElements.forEach((element, index) => {
+            const depth = element.dataset.depth || (index + 1) * 8;
+            const moveX = (mouseX - 0.5) * depth;
+            const moveY = (mouseY - 0.5) * depth;
+            element.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        });
+
+        mouseUpdateTicking = false;
+    }
+
+    function requestMouseUpdate() {
+        if (!mouseUpdateTicking) {
+            window.requestAnimationFrame(updateMouseParallax);
+            mouseUpdateTicking = true;
+        }
+    }
+
+    document.addEventListener('mousemove', function(e) {
+        mouseX = e.clientX / window.innerWidth;
+        mouseY = e.clientY / window.innerHeight;
+        requestMouseUpdate();
+    });
+
+    // ===== ワークカード3Dティルト効果 =====
+    const workCards = document.querySelectorAll('.work-card');
+    workCards.forEach(card => {
+        card.classList.add('tilt-3d');
+        
+        card.addEventListener('mousemove', function(e) {
+            if (window.innerWidth <= 768) return; // モバイルではスキップ
+
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = (y - centerY) / 12;
+            const rotateY = (centerX - x) / 12;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-12px) scale(1.02)`;
+        });
+
+        card.addEventListener('mouseleave', function() {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)';
+        });
+    });
+
+    // ===== スムーズな数値カウントアップ =====
+    function animateCounter(element, target, duration = 2000) {
+        let start = 0;
+        const increment = target / (duration / 16);
+        const timer = setInterval(() => {
+            start += increment;
+            if (start >= target) {
+                element.textContent = Math.floor(target);
+                clearInterval(timer);
+            } else {
+                element.textContent = Math.floor(start);
+            }
+        }, 16);
+    }
+
+    // カウンター要素を監視
+    const counterObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+                entry.target.classList.add('counted');
+                const target = parseInt(entry.target.getAttribute('data-target'));
+                if (!isNaN(target)) {
+                    animateCounter(entry.target, target);
+                }
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.counter').forEach(counter => {
+        counterObserver.observe(counter);
+    });
+
+    // ===== パフォーマンス最適化 =====
+    
+    // Reduced Motion対応
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        // アニメーションを無効化
+        document.querySelectorAll('[class*="animation"], [class*="parallax"]').forEach(el => {
+            el.style.animation = 'none';
+            el.style.transition = 'none';
+        });
+        
+        // スクロールイベントを解除
+        window.removeEventListener('scroll', requestParallaxUpdate);
+        document.removeEventListener('mousemove', requestMouseUpdate);
+    }
+
+    // デバイス検出とパフォーマンス調整
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        // モバイルでは重いアニメーションを無効化
+        document.querySelectorAll('.mouse-parallax, .tilt-3d').forEach(el => {
+            el.style.transform = 'none';
+        });
+    }
+
+    console.log('✨ モダンアニメーション & パララックス強化が有効になりました');
 });
 
