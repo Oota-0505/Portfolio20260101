@@ -11,9 +11,7 @@
   
   /* グリーンアクセント */
   --color-primary-green: #38A169;
-  --color-light-green: #68D391;
   --color-dark-green: #2F855A;
-  --color-success-green: #48BB78;
   
   /* フォントファミリー */
   --font-primary: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
@@ -43,7 +41,6 @@
   --border-radius-sm: 8px;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
@@ -54,6 +51,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden; /* 横スクロールバーを非表示 */
 }
 
 body {
@@ -65,6 +63,8 @@ body {
   margin: 0;
   padding: 0;
   cursor: default;
+  overflow-x: hidden; /* 横スクロールバーを非表示 */
+  width: 100%;
 }
 
 a:hover, button:hover, .footer-contact-btn:hover {
@@ -198,173 +198,6 @@ button:hover ~ #art-cursor,
   transition: var(--transition);
 }
 
-/* --- Hero Section Stylish Animation --- */
-.hero-section {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(120deg, #14532d 0%, #166534 100%); /* 濃いモスグリーン系 */
-  overflow: hidden;
-}
-
-/* 背景に動くグラデーションエフェクト */
-.hero-section::before {
-  content: '';
-  position: absolute;
-  top: -20%;
-  left: -20%;
-  width: 140%;
-  height: 140%;
-  background: radial-gradient(circle at 30% 30%, #4ade80 0%, transparent 70%),
-              radial-gradient(circle at 70% 70%, #166534 0%, transparent 70%); /* 濃いグリーン */
-  animation: bgMove 10s linear infinite alternate;
-  z-index: 0;
-  opacity: 0.5;
-}
-@keyframes bgMove {
-  0% { transform: scale(1) translate(0, 0); }
-  100% { transform: scale(1.1) translate(30px, 30px); }
-}
-
-.hero-content {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  color: #fff; /* テキストを白に */
-  text-shadow: 0 2px 8px rgba(20, 83, 45, 0.18), 0 1px 0 #222; /* ほんのりシャドウ */
-}
-
-.hero-title {
-  font-size: 3.2rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  margin-bottom: 1rem;
-  opacity: 0;
-  transform: translateY(40px);
-  animation: fadeSlideIn 1.2s 0.2s cubic-bezier(.77,0,.18,1) forwards;
-  color: #fff; /* タイトルも白 */
-  text-shadow: 0 4px 16px rgba(20, 83, 45, 0.25), 0 1px 0 #222;
-}
-.hero-accent {
-  background: linear-gradient(90deg, #b9fbc0 30%, #4ade80 100%); /* 明るいグリーンでアクセント */
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0 2px 8px rgba(20, 83, 45, 0.18), 0 1px 0 #222;
-}
-.hero-subtitle {
-  font-size: 1.3rem;
-  font-weight: 500;
-  margin-bottom: 1.2rem;
-  opacity: 0;
-  transform: translateY(40px);
-  animation: fadeSlideIn 1.2s 0.5s cubic-bezier(.77,0,.18,1) forwards;
-  color: #fff; /* サブタイトルも白 */
-  text-shadow: 0 2px 8px rgba(20, 83, 45, 0.18), 0 1px 0 #222;
-}
-.hero-description {
-  font-size: 1.1rem;
-  color: #f0fdf4; /* 明るい白緑で可読性UP */
-  margin-bottom: 2.2rem;
-  opacity: 0;
-  transform: translateY(40px);
-  animation: fadeSlideIn 1.2s 0.8s cubic-bezier(.77,0,.18,1) forwards;
-  text-shadow: 0 2px 8px rgba(20, 83, 45, 0.18), 0 1px 0 #222;
-}
-@keyframes fadeSlideIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.hero-actions {
-  display: flex;
-  justify-content: center;
-  gap: 1.2rem;
-  margin-bottom: 2.5rem;
-  opacity: 0;
-  transform: translateY(40px);
-  animation: fadeSlideIn 1.2s 1.1s cubic-bezier(.77,0,.18,1) forwards;
-}
-.btn {
-  padding: 0.8em 2.2em;
-  border-radius: 2em;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
-  box-shadow: 0 2px 16px 0 rgba(99,102,241,0.08);
-}
-.btn-primary {
-  background: linear-gradient(90deg, #166534 0%, #4ade80 100%);
-  color: #fff;
-  text-shadow: 0 1px 4px rgba(20, 83, 45, 0.18);
-  border: 2px solid #b9fbc0;
-}
-.btn-primary:hover {
-  background: linear-gradient(90deg, #4ade80 0%, #166534 100%);
-  color: #fff;
-  box-shadow: 0 4px 24px 0 rgba(20,83,45,0.18);
-}
-.btn-outline {
-  background: transparent;
-  border: 2px solid #b9fbc0;
-  color: #b9fbc0;
-  text-shadow: 0 1px 4px rgba(20, 83, 45, 0.18);
-}
-.btn-outline:hover {
-  background: #166534;
-  color: #fff;
-  box-shadow: 0 4px 24px 0 rgba(20,83,45,0.18);
-}
-
-/* スクロールインジケーター */
-.hero-scroll-indicator {
-  position: absolute;
-  left: 50%;
-  bottom: 2.5rem;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 2;
-  opacity: 0;
-  animation: fadeInScroll 1.2s 1.6s forwards;
-}
-@keyframes fadeInScroll {
-  to { opacity: 1; }
-}
-.scroll-text {
-  font-size: 1rem;
-  color: #fff; /* 白に変更 */
-  margin-bottom: 0.3em;
-  letter-spacing: 0.1em;
-}
-.scroll-arrow {
-  width: 24px;
-  height: 24px;
-  border-left: 3px solid #fff; /* 白に変更 */
-  border-bottom: 3px solid #fff; /* 白に変更 */
-  transform: rotate(-45deg);
-  animation: arrowBounce 1.2s infinite;
-  margin-top: 0.2em;
-}
-@keyframes arrowBounce {
-  0%, 100% { transform: translateY(0) rotate(-45deg); }
-  50% { transform: translateY(10px) rotate(-45deg); }
-}
-
-/* レスポンシブ調整 */
-@media (max-width: 700px) {
-  .hero-title { font-size: 2.1rem; }
-  .hero-section { padding: 2.5em 0 1em 0; }
-  .hero-content { padding: 0 1em; }
-  .hero-actions { flex-direction: column; gap: 0.7rem; }
-}
 
 /* ===== セクション共通 ===== */
 .section-header {
@@ -901,13 +734,13 @@ button:hover ~ #art-cursor,
 .timeline-item::before {
   content: '';
   position: absolute;
-  left: -39px;
+  left: -43.5px; /* 0.5px右に調整 */
   top: 0;
-  width: 12px;
-  height: 12px;
-  background: var(--color-cool-gray); /* グレー */
+  width: 16px; /* 12pxから拡大 */
+  height: 16px; /* 12pxから拡大 */
+  background: var(--color-cool-gray);
   border-radius: 50%;
-  border: 3px solid var(--color-white);
+  border: 4px solid var(--color-white); /* 枠線も少し太く */
   z-index: 2;
   transition: background 0.3s ease, transform 0.3s ease;
 }
@@ -1019,6 +852,15 @@ button:hover ~ #art-cursor,
 }
 
 @media (max-width: 900px) {
+  .nav-container {
+    padding: 10px 16px; /* 上下のパディングを小さく */
+  }
+  
+  .brand-logo {
+    height: 60px; /* 少し小さく */
+    width: auto;
+  }
+  
   .nav-list {
     display: none;
   }
@@ -1026,7 +868,7 @@ button:hover ~ #art-cursor,
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 60px;
+    top: 50px; /* 60pxから50pxに調整 */
     right: 16px;
     background: #fff;
     box-shadow: 0 4px 24px rgba(0,0,0,0.08);
@@ -1046,12 +888,41 @@ button:hover ~ #art-cursor,
     padding: 0 var(--space-4);
   }
   
+  .nav-container {
+    padding: 8px 16px; /* 上下のパディングを小さく */
+  }
+  
+  .brand-logo {
+    height: 50px; /* 80pxから50pxに縮小 */
+    width: auto;
+  }
+  
   .nav-list {
     display: none;
   }
   
   .nav-toggle {
     display: flex;
+  }
+  
+  .section-header {
+    padding: var(--space-8) 0; /* レスポンシブ時はパディングを小さく */
+  }
+  
+  /* マーキーテキストの位置を調整（VALUEセクションと揃える） */
+  /* VALUEセクションはpadding-top: 0なので、他のセクションもそれに合わせる */
+  .section-header .marquee-bg {
+    top: 40%; /* VALUEセクションの位置に合わせてさらに上に */
+  }
+  
+  .section-title {
+    margin-bottom: var(--space-2); /* マージンを小さく */
+  }
+  
+  .section-subtitle {
+    margin-top: var(--space-2); /* サブタイトルのマージンを調整 */
+    line-height: 1.6; /* 行間を調整 */
+    display: block; /* ブロック要素として確実に表示 */
   }
   
   .hero-title {
@@ -1078,7 +949,7 @@ button:hover ~ #art-cursor,
   }
   
   .timeline-item::before {
-    left: -32px;
+    left: -35.5px;
   }
   
   /* Pricing responsive styles */
@@ -1110,12 +981,37 @@ button:hover ~ #art-cursor,
 }
 
 @media (max-width: 480px) {
+  .nav-container {
+    padding: 6px 12px; /* さらに小さく */
+  }
+  
+  .brand-logo {
+    height: 40px; /* さらに小さく */
+    width: auto;
+  }
+  
   .hero-title {
     font-size: 2rem;
   }
   
+  .section-header {
+    padding: var(--space-6) 0; /* さらに小さく */
+  }
+  
+  /* マーキーテキストの位置を調整（VALUEセクションと揃える） */
+  .section-header .marquee-bg {
+    top: 38%; /* VALUEセクションの位置に合わせてさらに上に */
+  }
+  
   .section-title {
     font-size: var(--text-3xl);
+    margin-bottom: var(--space-2); /* レスポンシブ時はマージンを小さく */
+  }
+  
+  .section-subtitle {
+    margin-top: var(--space-2); /* サブタイトルのマージンを調整 */
+    line-height: 1.6; /* 行間を調整 */
+    display: block; /* ブロック要素として確実に表示 */
   }
   
   .work-content {
@@ -1180,564 +1076,6 @@ button:hover ~ #art-cursor,
 @media (max-width: 700px) {
   #art-cursor {
     display: none !important;
-  }
-}
-
-/* ===== パララックスヒーローセクション ===== */
-.hero-parallax {
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-}
-.hero-parallax .parallax-mid {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-}
-.hero-parallax .floating-elements .element {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-.hero-parallax .element-1 {
-  width: 120px;
-  height: 120px;
-  top: 15%;
-  left: 8%;
-  animation: float-1 20s ease-in-out infinite;
-}
-.hero-parallax .element-2 {
-  width: 80px;
-  height: 80px;
-  top: 65%;
-  right: 12%;
-  animation: float-2 15s ease-in-out infinite reverse;
-}
-.hero-parallax .element-3 {
-  width: 100px;
-  height: 100px;
-  bottom: 25%;
-  left: 15%;
-  animation: float-3 25s ease-in-out infinite;
-}
-.hero-parallax .parallax-front {
-  position: relative;
-  z-index: 3;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.hero-parallax .hero-content {
-  text-align: center;
-  color: white;
-  max-width: 800px;
-  padding: 0 2rem;
-}
-.hero-parallax .hero-title {
-  font-size: clamp(3rem, 8vw, 5rem);
-  font-weight: 700;
-  margin-bottom: 1rem;
-  text-shadow: 0 4px 16px rgba(20, 83, 45, 0.25), 0 1px 0 #222;
-  letter-spacing: -0.02em;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInUp 1s ease 0.3s forwards;
-  color: #fff;
-}
-.hero-parallax .hero-subtitle {
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 500;
-  margin-bottom: 2rem;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInUp 1s ease 0.6s forwards;
-  color: #fff;
-  text-shadow: 0 2px 8px rgba(20, 83, 45, 0.18), 0 1px 0 #222;
-}
-.hero-parallax .hero-description {
-  font-size: clamp(1rem, 2.5vw, 1.3rem);
-  line-height: 1.6;
-  margin-bottom: 3rem;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInUp 1s ease 0.9s forwards;
-  color: #f0fdf4;
-  text-shadow: 0 2px 8px rgba(20, 83, 45, 0.18), 0 1px 0 #222;
-}
-.hero-parallax .hero-buttons {
-  display: flex;
-  gap: 1.5rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInUp 1s ease 1.2s forwards;
-}
-.hero-parallax .btn {
-  padding: 0.8em 2.2em;
-  border-radius: 2em;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
-  box-shadow: 0 2px 16px 0 rgba(99,102,241,0.08);
-}
-.hero-parallax .btn-primary {
-  background: linear-gradient(90deg, #166534 0%, #4ade80 100%);
-  color: #fff;
-  text-shadow: 0 1px 4px rgba(20, 83, 45, 0.18);
-  border: 2px solid #b9fbc0;
-}
-.hero-parallax .btn-primary:hover {
-  background: linear-gradient(90deg, #4ade80 0%, #166534 100%);
-  color: #fff;
-  box-shadow: 0 4px 24px 0 rgba(20,83,45,0.18);
-}
-.hero-parallax .btn-secondary {
-  background: transparent;
-  border: 2px solid #b9fbc0;
-  color: #b9fbc0;
-  text-shadow: 0 1px 4px rgba(20, 83, 45, 0.18);
-}
-.hero-parallax .btn-secondary:hover {
-  background: #166534;
-  color: #fff;
-  box-shadow: 0 4px 24px 0 rgba(20,83,45,0.18);
-}
-.hero-parallax .scroll-indicator {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.9rem;
-  opacity: 0;
-  animation: fadeInUp 1s ease 1.5s forwards;
-}
-.hero-parallax .scroll-arrow {
-  width: 2px;
-  height: 30px;
-  background: rgba(255, 255, 255, 0.5);
-  margin: 0.5rem auto;
-  position: relative;
-}
-.hero-parallax .scroll-arrow::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 8px solid rgba(255, 255, 255, 0.5);
-  animation: bounce 2s infinite;
-}
-@keyframes patternMove {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(-100px, -100px); }
-}
-@keyframes float-1 {
-  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
-  33% { transform: translate(40px, -30px) scale(1.1) rotate(120deg); }
-  66% { transform: translate(-30px, 20px) scale(0.9) rotate(240deg); }
-}
-@keyframes float-2 {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  50% { transform: translate(-25px, -40px) rotate(180deg); }
-}
-@keyframes float-3 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(30px, -20px) scale(1.05); }
-  75% { transform: translate(-20px, 35px) scale(0.95); }
-}
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-  40% { transform: translateX(-50%) translateY(-10px); }
-  60% { transform: translateX(-50%) translateY(-5px); }
-}
-@media (max-width: 768px) {
-  .hero-parallax .parallax-mid .floating-elements .element-1 { width: 80px; height: 80px; }
-  .hero-parallax .parallax-mid .floating-elements .element-2 { width: 60px; height: 60px; }
-  .hero-parallax .parallax-mid .floating-elements .element-3 { width: 70px; height: 70px; }
-  .hero-parallax .hero-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-  .hero-parallax .btn {
-    width: 200px;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-parallax * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* ===== DigiRise風パララックスヒーロー ===== */
-.hero-digirise {
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-  background: #0a0a0a;
-}
-.hero-digirise .animated-background {
-  position: fixed;
-  top: -10%;
-  left: -10%;
-  width: 120%;
-  height: 120%;
-  z-index: 1;
-}
-.hero-digirise .bg-gradient {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #1a4d3a 0%, #2d5a3d 25%, #4a7c59 50%, #5a8a6b 75%, #6b9d7c 100%);
-  opacity: 0.8;
-  animation: gradientShift 20s ease-in-out infinite;
-}
-.hero-digirise .bg-shapes {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-.hero-digirise .shape {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-}
-.hero-digirise .shape-1 {
-  width: 300px;
-  height: 300px;
-  top: 10%;
-  left: 5%;
-  animation: float-large 25s ease-in-out infinite;
-}
-.hero-digirise .shape-2 {
-  width: 200px;
-  height: 200px;
-  top: 60%;
-  right: 10%;
-  animation: float-medium 20s ease-in-out infinite reverse;
-}
-.hero-digirise .shape-3 {
-  width: 150px;
-  height: 150px;
-  bottom: 20%;
-  left: 20%;
-  animation: float-small 15s ease-in-out infinite;
-}
-.hero-digirise .dot-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  background-image: 
-    radial-gradient(circle at 25% 25%, rgba(255,255,255,0.2) 2px, transparent 2px),
-    radial-gradient(circle at 75% 75%, rgba(255,255,255,0.1) 1px, transparent 1px),
-    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.15) 1.5px, transparent 1.5px);
-  background-size: 40px 40px, 60px 60px, 80px 80px;
-  animation: dotMove 60s linear infinite;
-  opacity: 0.6;
-}
-.hero-digirise .typography-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-.hero-digirise .large-text {
-  font-size: clamp(8rem, 20vw, 20rem);
-  font-weight: 900;
-  color: rgba(255, 255, 255, 0.1);
-  line-height: 0.8;
-  letter-spacing: -0.05em;
-  text-align: center;
-  user-select: none;
-  animation: textFloat 30s ease-in-out infinite;
-}
-.hero-digirise .accent-text {
-  position: absolute;
-  top: 60%;
-  right: 10%;
-  font-size: clamp(1.5rem, 4vw, 3rem);
-  font-weight: 700;
-  color: #7dd87d;
-  text-shadow: 0 0 20px rgba(125, 216, 125, 0.5);
-  line-height: 1.2;
-  text-align: right;
-  animation: accentGlow 4s ease-in-out infinite alternate;
-}
-.hero-digirise .main-content {
-  position: relative;
-  z-index: 4;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.hero-digirise .hero-content {
-  text-align: center;
-  color: white;
-  max-width: 800px;
-  padding: 0 2rem;
-}
-.hero-digirise .hero-title {
-  font-size: clamp(3rem, 8vw, 6rem);
-  font-weight: 700;
-  margin-bottom: 1rem;
-  text-shadow: 2px 2px 20px rgba(0,0,0,0.5);
-  letter-spacing: -0.02em;
-  opacity: 0;
-  transform: translateY(50px);
-  animation: fadeInUp 1.5s ease 0.5s forwards;
-}
-.hero-digirise .hero-subtitle {
-  font-size: clamp(2rem, 5vw, 4rem);
-  font-weight: 300;
-  margin-bottom: 2rem;
-  opacity: 0;
-  transform: translateY(50px);
-  animation: fadeInUp 1.5s ease 0.8s forwards;
-  color: rgba(255, 255, 255, 0.9);
-}
-.hero-digirise .hero-description {
-  font-size: clamp(1rem, 2.5vw, 1.4rem);
-  line-height: 1.8;
-  margin-bottom: 3rem;
-  opacity: 0;
-  transform: translateY(50px);
-  animation: fadeInUp 1.5s ease 1.1s forwards;
-  color: rgba(255, 255, 255, 0.8);
-}
-.hero-digirise .hero-buttons {
-  display: flex;
-  gap: 2rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  opacity: 0;
-  transform: translateY(50px);
-  animation: fadeInUp 1.5s ease 1.4s forwards;
-}
-.hero-digirise .btn {
-  padding: 1.2rem 2.5rem;
-  border-radius: 50px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1.1rem;
-  transition: all 0.4s ease;
-  position: relative;
-  overflow: hidden;
-  backdrop-filter: blur(10px);
-}
-.hero-digirise .btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-  transition: left 0.6s ease;
-}
-.hero-digirise .btn:hover::before {
-  left: 100%;
-}
-.hero-digirise .btn-primary {
-  background: rgba(125, 216, 125, 0.3);
-  color: white;
-  border: 2px solid rgba(125, 216, 125, 0.5);
-  box-shadow: 0 0 30px rgba(125, 216, 125, 0.2);
-}
-.hero-digirise .btn-primary:hover {
-  background: rgba(125, 216, 125, 0.5);
-  transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(125, 216, 125, 0.3);
-}
-.hero-digirise .btn-secondary {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-}
-.hero-digirise .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-}
-.hero-digirise .brand-logo {
-  position: absolute;
-  bottom: 8rem;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  color: rgba(255, 255, 255, 0.7);
-  opacity: 0;
-  animation: fadeInUp 1.5s ease 1.7s forwards;
-}
-.hero-digirise .logo-symbol {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: #7dd87d;
-}
-.hero-digirise .logo-text {
-  font-size: 0.9rem;
-  letter-spacing: 0.2em;
-  font-weight: 300;
-}
-.hero-digirise .scroll-indicator {
-  position: absolute;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 5;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.8rem;
-  letter-spacing: 0.1em;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  opacity: 0;
-  animation: fadeInUp 1.5s ease 2s forwards;
-}
-.hero-digirise .scroll-line {
-  width: 2px;
-  height: 60px;
-  background: linear-gradient(to bottom, rgba(125, 216, 125, 0.8), transparent);
-  margin: 1rem auto 0;
-  position: relative;
-}
-.hero-digirise .scroll-line::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 6px;
-  height: 6px;
-  background: #7dd87d;
-  border-radius: 50%;
-  animation: scrollPulse 2s ease-in-out infinite;
-}
-@keyframes gradientShift {
-  0%, 100% { 
-    background: linear-gradient(135deg, #1a4d3a 0%, #2d5a3d 25%, #4a7c59 50%, #5a8a6b 75%, #6b9d7c 100%);
-  }
-  50% { 
-    background: linear-gradient(135deg, #2d5a3d 0%, #4a7c59 25%, #5a8a6b 50%, #6b9d7c 75%, #1a4d3a 100%);
-  }
-}
-@keyframes dotMove {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(-40px, -40px); }
-}
-@keyframes float-large {
-  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
-  33% { transform: translate(50px, -30px) scale(1.1) rotate(120deg); }
-  66% { transform: translate(-30px, 40px) scale(0.9) rotate(240deg); }
-}
-@keyframes float-medium {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  50% { transform: translate(-40px, -50px) rotate(180deg); }
-}
-@keyframes float-small {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(30px, -25px) scale(1.05); }
-  75% { transform: translate(-25px, 35px) scale(0.95); }
-}
-@keyframes textFloat {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(1deg); }
-}
-@keyframes accentGlow {
-  0% { 
-    text-shadow: 0 0 20px rgba(125, 216, 125, 0.5);
-    transform: scale(1);
-  }
-  100% { 
-    text-shadow: 0 0 40px rgba(125, 216, 125, 0.8);
-    transform: scale(1.02);
-  }
-}
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-@keyframes scrollPulse {
-  0%, 100% { opacity: 1; transform: translateX(-50%) scale(1); }
-  50% { opacity: 0.5; transform: translateX(-50%) scale(1.2); }
-}
-@media (max-width: 768px) {
-  .hero-digirise .typography-layer .large-text {
-    font-size: clamp(4rem, 15vw, 8rem);
-  }
-  .hero-digirise .typography-layer .accent-text {
-    top: 70%;
-    right: 5%;
-    font-size: clamp(1rem, 3vw, 1.5rem);
-  }
-  .hero-digirise .main-content .hero-content .hero-buttons {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-  .hero-digirise .main-content .hero-content .btn {
-    width: 250px;
-  }
-  .hero-digirise .main-content .brand-logo {
-    bottom: 6rem;
-  }
-  .hero-digirise .scroll-indicator {
-    bottom: 1rem;
-    right: 1rem;
-    writing-mode: horizontal-tb;
-    text-align: center;
-  }
-  .hero-digirise .scroll-line {
-    width: 40px;
-    height: 2px;
-    background: linear-gradient(to right, rgba(125, 216, 125, 0.8), transparent);
-  }
-  .hero-digirise .scroll-line::after {
-    right: 0;
-    left: auto;
-    transform: translateY(-50%);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-digirise * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
   }
 }
 
@@ -2129,416 +1467,4 @@ button:hover ~ #art-cursor,
   }
 }
 
-/* ===== モダンなアニメーション & パララックス強化 ===== */
-
-/* スクロール進行バー */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 0%;
-  height: 3px;
-  background: linear-gradient(90deg, var(--color-primary-green), var(--color-light-green));
-  z-index: 10000;
-  transition: width 0.1s ease;
-  box-shadow: 0 0 10px var(--color-light-green);
-}
-
-/* フェードイン・スライドインアニメーション（滑らかなイージング） */
-.fade-in-up {
-  opacity: 0;
-  transform: translateY(50px) translateZ(0);
-  transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  backface-visibility: hidden;
-}
-
-.fade-in-up.visible {
-  opacity: 1;
-  transform: translateY(0) translateZ(0);
-}
-
-.fade-in-left {
-  opacity: 0;
-  transform: translateX(-50px) translateZ(0);
-  transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  backface-visibility: hidden;
-}
-
-.fade-in-left.visible {
-  opacity: 1;
-  transform: translateX(0) translateZ(0);
-}
-
-.fade-in-right {
-  opacity: 0;
-  transform: translateX(50px) translateZ(0);
-  transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  backface-visibility: hidden;
-}
-
-.fade-in-right.visible {
-  opacity: 1;
-  transform: translateX(0) translateZ(0);
-}
-
-/* スケールインアニメーション（滑らか） */
-.scale-in {
-  opacity: 0;
-  transform: scale(0.9) translateZ(0);
-  transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  backface-visibility: hidden;
-}
-
-.scale-in.visible {
-  opacity: 1;
-  transform: scale(1) translateZ(0);
-}
-
-/* ローテートインアニメーション（滑らか） */
-.rotate-in {
-  opacity: 0;
-  transform: rotate(-5deg) scale(0.95) translateZ(0);
-  transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  backface-visibility: hidden;
-}
-
-.rotate-in.visible {
-  opacity: 1;
-  transform: rotate(0deg) scale(1) translateZ(0);
-}
-
-/* ストラグルアニメーション（順次表示・滑らか） */
-.stagger-item {
-  opacity: 0;
-  transform: translateY(30px) translateZ(0);
-  transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  backface-visibility: hidden;
-}
-
-.stagger-item.visible {
-  opacity: 1;
-  transform: translateY(0) translateZ(0);
-}
-
-/* パララックス要素（より滑らかに） */
-.parallax-element {
-  will-change: transform;
-  transition: transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  backface-visibility: hidden;
-  transform: translateZ(0);
-}
-
-/* パララックス背景 */
-.parallax-section-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 120%;
-  will-change: transform;
-  background-size: cover;
-  background-position: center;
-  z-index: 0;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-}
-
-/* ワークカードの強化 - 3Dティルト（動きを抑えた滑らかな効果） */
-.work-card {
-  transform-style: preserve-3d;
-  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              box-shadow 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  backface-visibility: hidden;
-}
-
-.work-card:hover {
-  transform: perspective(1000px) translateY(-8px) scale(1.01);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-}
-
-/* フローティングアニメーション */
-@keyframes float-smooth {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-15px);
-  }
-}
-
-.float-animation {
-  animation: float-smooth 4s ease-in-out infinite;
-}
-
-/* パルスアニメーション */
-@keyframes pulse-glow {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.05);
-    opacity: 0.9;
-  }
-}
-
-.pulse-animation {
-  animation: pulse-glow 2.5s ease-in-out infinite;
-}
-
-/* グラデーションアニメーション */
-@keyframes gradient-flow {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.gradient-animation {
-  background-size: 200% 200%;
-  animation: gradient-flow 8s ease infinite;
-}
-
-/* シャインエフェクト */
-.shine-effect {
-  position: relative;
-  overflow: hidden;
-}
-
-.shine-effect::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.3),
-    transparent
-  );
-  transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.shine-effect:hover::before {
-  left: 100%;
-}
-
-/* 3Dティルトエフェクト */
-.tilt-3d {
-  transform-style: preserve-3d;
-  transition: transform 0.3s ease;
-}
-
-.tilt-3d:hover {
-  transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
-}
-
-/* パララックス画像強化 */
-.parallax-img {
-  will-change: transform;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.parallax-img:hover {
-  transform: scale(1.05);
-}
-
-/* セクション背景パララックス */
-.section-with-parallax {
-  position: relative;
-  overflow: hidden;
-}
-
-.section-with-parallax::before {
-  content: '';
-  position: absolute;
-  top: -10%;
-  left: 0;
-  width: 100%;
-  height: 120%;
-  background: radial-gradient(circle at 30% 50%, rgba(56, 161, 105, 0.05) 0%, transparent 50%);
-  will-change: transform;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* スムーズなブラー効果 */
-.blur-in {
-  filter: blur(10px);
-  opacity: 0;
-  transition: filter 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.blur-in.visible {
-  filter: blur(0px);
-  opacity: 1;
-}
-
-/* スライドアップアニメーション（強化版） */
-.slide-up-strong {
-  opacity: 0;
-  transform: translateY(100px);
-  transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 1s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.slide-up-strong.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* バウンスインアニメーション */
-@keyframes bounce-in {
-  0% {
-    opacity: 0;
-    transform: scale(0.3) translateY(-100px);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.05);
-  }
-  70% {
-    transform: scale(0.95);
-  }
-  100% {
-    transform: scale(1) translateY(0);
-  }
-}
-
-.bounce-in {
-  animation: bounce-in 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* エラスティックアニメーション */
-@keyframes elastic {
-  0% {
-    transform: scale(1);
-  }
-  30% {
-    transform: scale(1.25);
-  }
-  40% {
-    transform: scale(0.75);
-  }
-  50% {
-    transform: scale(1.15);
-  }
-  65% {
-    transform: scale(0.95);
-  }
-  75% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-.elastic-hover:hover {
-  animation: elastic 0.6s;
-}
-
-/* マウス追従パララックス（滑らか） */
-.mouse-parallax {
-  will-change: transform;
-  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  backface-visibility: hidden;
-  transform: translateZ(0);
-}
-
-/* スクロールトリガーアニメーション用クラス */
-.scroll-reveal {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.scroll-reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* パララックスレイヤー */
-.parallax-layer-front {
-  will-change: transform;
-  transform: translateZ(0);
-}
-
-.parallax-layer-mid {
-  will-change: transform;
-  transform: translateZ(0);
-}
-
-.parallax-layer-back {
-  will-change: transform;
-  transform: translateZ(0);
-}
-
-/* リデュースモーション対応 */
-@media (prefers-reduced-motion: reduce) {
-  .fade-in-up,
-  .fade-in-left,
-  .fade-in-right,
-  .scale-in,
-  .rotate-in,
-  .stagger-item,
-  .blur-in,
-  .slide-up-strong,
-  .scroll-reveal {
-    transition: none;
-    animation: none;
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
-  }
-  
-  .parallax-element,
-  .parallax-section-bg,
-  .parallax-img,
-  .parallax-layer-front,
-  .parallax-layer-mid,
-  .parallax-layer-back,
-  .mouse-parallax {
-    transform: none !important;
-    will-change: auto;
-  }
-  
-  .float-animation,
-  .pulse-animation,
-  .gradient-animation {
-    animation: none !important;
-  }
-}
-
-/* モバイル対応 */
-@media (max-width: 768px) {
-  .work-card:hover {
-    transform: translateY(-8px) scale(1.01);
-  }
-  
-  .tilt-3d:hover {
-    transform: none;
-  }
-  
-  .parallax-element,
-  .parallax-section-bg,
-  .mouse-parallax {
-    transform: none !important;
-  }
-}
 
