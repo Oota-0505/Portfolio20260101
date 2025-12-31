@@ -348,7 +348,7 @@ if (document.querySelector('.related-works-grid')) {
   startSlider();
 })();
 
-// ===== アートカーソル追従 =====
+// ===== アートカーソル追従（Worksエリアから出現） =====
 function setupArtCursor() {
   // 既存のart-cursorをすべて削除
   document.querySelectorAll('#art-cursor').forEach(el => el.remove());
@@ -356,18 +356,87 @@ function setupArtCursor() {
   const artCursor = document.createElement('div');
   artCursor.id = 'art-cursor';
   document.body.appendChild(artCursor);
+  
+  // 初期状態は非表示
+  artCursor.style.opacity = '0';
+  artCursor.style.transform = 'scale(0)';
+  
   let mouseX = window.innerWidth / 2;
   let mouseY = window.innerHeight / 2;
   let cursorX = mouseX;
   let cursorY = mouseY;
+  let isInWorksSection = false;
+  
+  const worksSection = document.querySelector('.works-section');
+  
+  // Worksセクションの位置を取得
+  function checkWorksSection() {
+    if (!worksSection) return;
+    
+    const rect = worksSection.getBoundingClientRect();
+    const scrollY = window.scrollY || window.pageYOffset;
+    const sectionTop = rect.top + scrollY;
+    const sectionBottom = sectionTop + rect.height;
+    const currentScroll = scrollY + window.innerHeight / 2;
+    
+    // Worksセクションに入ったかチェック
+    if (currentScroll >= sectionTop - 200 && currentScroll <= sectionBottom + 200) {
+      if (!isInWorksSection) {
+        isInWorksSection = true;
+        // フェードインアニメーション
+        artCursor.style.transition = 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        artCursor.style.opacity = '1';
+        artCursor.style.transform = 'scale(1)';
+      }
+    } else {
+      if (isInWorksSection) {
+        isInWorksSection = false;
+        // フェードアウトアニメーション
+        artCursor.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        artCursor.style.opacity = '0';
+        artCursor.style.transform = 'scale(0)';
+      }
+    }
+  }
+  
+  // マウス移動イベント
   document.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
+    
+    // Worksセクション内でマウスが動いた時のみ表示
+    if (worksSection) {
+      const rect = worksSection.getBoundingClientRect();
+      const isMouseInWorks = (
+        mouseX >= rect.left &&
+        mouseX <= rect.right &&
+        mouseY >= rect.top &&
+        mouseY <= rect.bottom
+      );
+      
+      if (isMouseInWorks && !isInWorksSection) {
+        isInWorksSection = true;
+        artCursor.style.transition = 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        artCursor.style.opacity = '1';
+        artCursor.style.transform = 'scale(1)';
+      } else if (!isMouseInWorks && isInWorksSection) {
+        // マウスがWorksセクション外に出た時は非表示にしない（スクロールで制御）
+        // ここでは何もしない
+      }
+    }
   });
+  
+  // スクロールイベント
+  window.addEventListener('scroll', checkWorksSection);
+  // 初期チェック
+  checkWorksSection();
+  
   function animateCursor() {
-    cursorX += (mouseX - cursorX) * 0.18;
-    cursorY += (mouseY - cursorY) * 0.18;
-    artCursor.style.transform = `translate3d(${cursorX - 22}px, ${cursorY - 22}px, 0)`;
+    if (isInWorksSection) {
+      cursorX += (mouseX - cursorX) * 0.18;
+      cursorY += (mouseY - cursorY) * 0.18;
+      artCursor.style.transform = `translate3d(${cursorX - 22}px, ${cursorY - 22}px, 0) scale(1)`;
+    }
     requestAnimationFrame(animateCursor);
   }
   animateCursor();

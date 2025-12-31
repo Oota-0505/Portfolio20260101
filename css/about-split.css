@@ -1,0 +1,218 @@
+
+/* =========================================
+   Split Layout & Parallax About Section
+   ========================================= */
+
+/* セクション全体の余白設定 */
+.about-section-split {
+  padding: 0;
+  background-color: #fdfdfd; /* クリーンな白系 */
+  overflow: hidden;
+}
+
+/* スプリットブロック */
+.split-block {
+  display: flex;
+  min-height: 80vh; /* 各ブロックの高さ確保 */
+  width: 100%;
+  position: relative;
+}
+
+/* 逆配置（画像右、テキスト左） */
+.split-block.reverse {
+  flex-direction: row-reverse;
+}
+
+/* 画像ラッパー */
+.split-image-wrapper {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  min-height: 500px; /* モバイル等での最小高さ */
+}
+
+/* パララックス画像（固定背景風） */
+.split-image.parallax-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* ここで「窓」のように固定される効果を出す */
+  background-attachment: fixed; 
+  /* モバイルでのパフォーマンス用調整が必要な場合あり */
+}
+
+/* reverseブロック（右画像）の場合、画像を右端に配置 */
+.split-block.reverse .split-image.parallax-bg {
+  left: auto;
+  right: 0;
+}
+
+/* コンテンツ側 */
+.split-content {
+  flex: 1;
+  display: flex;
+  align-items: center; /* 垂直中央 */
+  justify-content: center; /* 水平中央 */
+  padding: 6rem 4rem;
+  background-color: #fdfdfd;
+  z-index: 2; /* 画像より上に */
+}
+
+/* コンテンツラッパー（幅制限） */
+.content-wrapper {
+  max-width: 500px;
+  width: 100%;
+}
+
+/* ラベル装飾 */
+.block-label {
+  display: inline-block;
+  font-family: var(--font-english);
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #38A169;
+  margin-bottom: 1rem;
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+.block-label::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 1px;
+  background-color: #38A169;
+}
+
+/* ブロックタイトル */
+.block-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+/* ブロックサブタイトル */
+.block-subtitle {
+  font-size: 1rem;
+  color: #718096;
+  margin-bottom: 2rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+/* 説明文 */
+.block-description {
+  font-size: 1rem;
+  color: #4a5568;
+  line-height: 2;
+  margin-bottom: 1.5rem;
+  text-align: justify; /* 雑誌風に整える */
+}
+
+/* マージン調整用 */
+.mt-4 {
+  margin-top: 2rem;
+}
+
+/* =========================================
+   Achievements Styles within Split Layout
+   ========================================= */
+.about-highlight.simple-style {
+  margin-top: 2rem;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 1.5rem;
+}
+
+.achievement-row {
+  display: flex;
+  align-items: baseline;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.achievement-row:last-child {
+  border-bottom: none;
+}
+
+.achieve-label {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #38A169;
+  width: 100px; /* ラベル幅固定 */
+  flex-shrink: 0;
+}
+
+.achieve-val {
+  font-size: 0.95rem;
+  color: #2d3748;
+}
+
+/* =========================================
+   Skills Styles within Split Layout
+   ========================================= */
+.skills-simple-list {
+  margin-top: 2rem;
+}
+
+.skill-group {
+  margin-bottom: 2rem;
+}
+
+.skill-group h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+  border-left: 3px solid #38A169;
+  padding-left: 0.8rem;
+}
+
+.skill-group p {
+  font-size: 0.95rem;
+  color: #4a5568;
+  line-height: 1.6;
+  padding-left: 1rem; /* インデント */
+}
+
+/* =========================================
+   Responsive Adjustments
+   ========================================= */
+@media (max-width: 900px) {
+  .split-block, 
+  .split-block.reverse {
+    flex-direction: column;
+    height: auto;
+    min-height: auto;
+  }
+  
+  .split-image-wrapper {
+    min-height: 350px;
+    height: 350px; /* 固定高さ */
+  }
+  
+  /* モバイルでは固定背景を解除（パフォーマンス向上） */
+  .split-image.parallax-bg {
+    background-attachment: scroll; 
+  }
+
+  .split-content {
+    padding: 4rem 2rem;
+  }
+  
+  .block-title {
+    font-size: 2rem;
+  }
+}
+

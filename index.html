@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="css/reset/reset.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/about-split.css">
     <link rel="icon" href="images/icons8-calla-lily-64 (1).png" type="image/png">
 </head>
 <body>
@@ -111,15 +112,6 @@
 
                     <!-- 私の3つの強み -->
                     <div class="strengths-section">
-                        <div class="section-header">
-                            <div class="marquee-bg">
-                                <div class="marquee-text">
-                                    <span>VALUES</span><span>VALUES</span><span>VALUES</span><span>VALUES</span>
-                                    <span>VALUES</span><span>VALUES</span><span>VALUES</span><span>VALUES</span>
-                                </div>
-                            </div>
-                            <h2 class="section-title">Values</h2>
-                        </div>
                         <div class="strengths-grid">
                             <div class="strength-item">
                                 <div class="strength-icon">⭐</div>
@@ -456,9 +448,9 @@
     </section>
 
     <!-- ABOUTセクション -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <div class="section-header">
+    <section id="about" class="about-section-split">
+        <div class="container-fluid" style="padding: 0;">
+            <div class="section-header" style="padding-top: 5rem; padding-bottom: 5rem;">
                 <div class="marquee-bg">
                     <div class="marquee-text">
                         <span>ABOUT</span><span>ABOUT</span><span>ABOUT</span><span>ABOUT</span>
@@ -470,91 +462,99 @@
                     私について、スキル、経歴をご紹介します
                 </p>
             </div>
-            
-            <div class="about-container">
-                <div class="about-image">
-                    <img src="./images/PROFI.png" alt="太田三一斗のプロフィール写真" class="profile-image">
+
+            <!-- Block 1: Profile (左画像・右テキスト) -->
+            <div class="split-block">
+                <div class="split-image-wrapper">
+                    <div class="split-image parallax-bg" style="background-image: url('./images/Screenshot 2025-12-31 at 22.08.57.png');"></div>
                 </div>
-                
-                <div class="about-content">
-                    <div class="about-text">
-                        <h3 class="about-name">太田 三一斗</h3>
-                        <p class="about-title">Web Developer / Writer / English Editor</p>
-                        <p class="about-description">
-                            Web制作・SEOライティング・英語教材の校閲などを行っています。HTML / CSS / JavaScript / PHP / React に対応し、WordPressによる構築・カスタムテンプレート制作・公開作業まで一貫して対応可能です。LP・コーポレートサイトの制作や改修も実務で取り組んでいます。
-                        </p>
-                        <div class="about-highlight">
-                            <div class="highlight-header">
-                                <div class="highlight-icon">🏆</div>
-                                <h4 class="highlight-title">実績・自己PR</h4>
-                            </div>
-                            <div class="highlight-content">
-                                <div class="achievement-item">
-                                    <div class="achievement-label">経営</div>
-                                    <div class="achievement-value">純利益率 7％ → 21％ ／ 事業売却</div>
-                                </div>
-                                <div class="achievement-item">
-                                    <div class="achievement-label">店長</div>
-                                    <div class="achievement-value">全国1,500店舗中1位 ×3回 ／ 表彰</div>
-                                </div>
-                                <div class="achievement-item">
-                                    <div class="achievement-label">副業</div>
-                                    <div class="achievement-value">EC取引 600件 ／ 1年間</div>
-                                </div>
-                                <div class="achievement-item">
-                                    <div class="achievement-label">フリーランス</div>
-                                    <div class="achievement-value">業務委託１社、顧問契約１社</div>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="about-description about-conclusion">
-                            経営者としての判断力と、現場での実行力の両方を持ち、柔軟かつ主体的に取り組めます。
+                <div class="split-content">
+                    <div class="content-wrapper">
+                        <span class="block-label">Who I am</span>
+                        <h3 class="block-title">太田 三一斗</h3>
+                        <p class="block-subtitle">Web Developer / Writer / English Editor</p>
+                        <p class="block-description">
+                            Web制作・SEOライティング・英語教材の校閲などを行っています。<br>
+                            HTML / CSS / JavaScript / PHP / React に対応し、WordPressによる構築・カスタムテンプレート制作・公開作業まで一貫して対応可能です。<br>
+                            経営者としての視点と、現場での実務経験を活かし、クライアント様のビジネスゴールに寄り添った提案を心がけています。
                         </p>
                     </div>
-                    
-                    <div class="skills-section">
-                        <h4 class="skills-title">Skills</h4>
-                        <div class="skills-grid">
-                            <div class="skill-category">
-                                <h5 class="skill-category-title">Frontend</h5>
-                                <ul class="skill-list">
-                                    <li>HTML5 / CSS3</li>
-                                    <li>JavaScript (ES6+)</li>
-                                    <li>React</li>
-                                    <li>SCSS / Sass</li>
-                                </ul>
+                </div>
+            </div>
+
+            <!-- Block 2: Achievements (右画像・左テキスト) -->
+            <div class="split-block reverse">
+                <div class="split-image-wrapper">
+                    <div class="split-image parallax-bg" style="background-image: url('./images/Screenshot 2025-12-31 at 22.08.57.png');"></div>
+                </div>
+                <div class="split-content">
+                    <div class="content-wrapper">
+                        <span class="block-label">Achievements</span>
+                        <h3 class="block-title">実績・自己PR</h3>
+                        <div class="about-highlight simple-style">
+                            <div class="achievement-row">
+                                <span class="achieve-label">経営</span>
+                                <span class="achieve-val">純利益率 7％ → 21％ ／ 事業売却</span>
                             </div>
-                            <div class="skill-category">
-                                <h5 class="skill-category-title">CMS / Tools</h5>
-                                <ul class="skill-list">
-                                    <li>WordPress</li>
-                                    <li>GitHub</li>
-                                    <li>Figma</li>
-                                    <li>Studio</li>
-                                </ul>
+                            <div class="achievement-row">
+                                <span class="achieve-label">店長</span>
+                                <span class="achieve-val">全国1,500店舗中1位 ×3回 ／ 表彰</span>
                             </div>
-                            <div class="skill-category">
-                                <h5 class="skill-category-title">Other</h5>
-                                <ul class="skill-list">
-                                    <li>Python</li>
-                                    <li>SEO対策</li>
-                                    <li>英語編集</li>
-                                    <li>プロジェクト管理</li>
-                                </ul>
+                            <div class="achievement-row">
+                                <span class="achieve-label">副業</span>
+                                <span class="achieve-val">EC取引 600件 ／ 1年間</span>
+                            </div>
+                            <div class="achievement-row">
+                                <span class="achieve-label">フリーランス</span>
+                                <span class="achieve-val">業務委託１社、顧問契約１社</span>
+                            </div>
+                        </div>
+                        <p class="block-description mt-4">
+                            経営者としての判断力と、現場での実行力の両方を持ち、柔軟かつ主体的に取り組めます。数字に基づいた改善提案が得意です。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Block 3: Skills (左画像・右テキスト) -->
+            <div class="split-block">
+                <div class="split-image-wrapper">
+                    <div class="split-image parallax-bg" style="background-image: url('./images/Screenshot 2025-12-31 at 22.08.57.png');"></div>
+                </div>
+                <div class="split-content">
+                    <div class="content-wrapper">
+                        <span class="block-label">Skills</span>
+                        <h3 class="block-title">スキルセット</h3>
+                        <div class="skills-simple-list">
+                            <div class="skill-group">
+                                <h4>Frontend</h4>
+                                <p>HTML5, CSS3, JavaScript (ES6+), React, SCSS/Sass</p>
+                            </div>
+                            <div class="skill-group">
+                                <h4>CMS / Tools</h4>
+                                <p>WordPress, GitHub, Figma, Studio</p>
+                            </div>
+                            <div class="skill-group">
+                                <h4>Other</h4>
+                                <p>Python, SEO対策, 英語編集, プロジェクト管理</p>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="timeline-section">
-                        <h4 class="timeline-title">Experience</h4>
-                        <div class="timeline">
+                </div>
+            </div>
+            
+            <!-- Experience Section -->
+            <div class="container" style="margin-top: 8rem; padding-bottom: 4rem;">
+                <div class="timeline-section">
+                    <h4 class="timeline-title">Experience</h4>
+                    <div class="timeline">
                             <div class="timeline-item">
-                                <div class="timeline-date">2025年5月〜現在</div>
+                                <div class="timeline-date">2025年5月〜</div>
                                 <div class="timeline-content">
                                     <!-- フリーランスセクション -->
                                     <div style="margin-bottom: 2.5em; padding: 0; background: #ffffff; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); overflow: hidden;">
                                         <!-- ヘッダー -->
-                                        <div style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1e40af 100%); padding: 2em 1.5em; color: #ffffff; position: relative; overflow: hidden;">
+                                        <div style="background: linear-gradient(135deg, #38A169 0%, #2f855a 50%, #276749 100%); padding: 2em 1.5em; color: #ffffff; position: relative; overflow: hidden;">
                                             <div style="position: absolute; top: -50%; right: -10%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); border-radius: 50%;"></div>
                                             <div style="position: relative; z-index: 1;">
                                                 <h5 style="font-size: 1.25rem; font-weight: 800; margin: 0 0 0.6em 0; display: flex; align-items: center; gap: 0.6em; letter-spacing: 0.05em; color: #ffffff; text-shadow: 0 2px 8px rgba(0,0,0,0.15);">
@@ -572,22 +572,22 @@
                                         <div style="padding: 1.5em;">
                                             <h6 style="font-size: 1rem; font-weight: 700; margin: 0 0 1.2em 0; color: #1A202C; letter-spacing: 0.03em; text-transform: uppercase;">主な実績</h6>
                                             
-                                            <div style="background: #f8fafc; padding: 1.25em; border-radius: 10px; border-left: 4px solid #60a5fa; margin-bottom: 1em;">
+                                            <div style="background: #f8fafc; padding: 1.25em; border-radius: 10px; border-left: 4px solid #38A169; margin-bottom: 1em;">
                                                 <ul style="margin: 0; padding-left: 1.4em; font-size: 0.9em; line-height: 2.1; color: #1A202C; list-style: none;">
                                                     <li style="position: relative; padding-left: 1.2em; margin-bottom: 0.5em;">
-                                                        <span style="position: absolute; left: 0; color: #60a5fa; font-weight: bold;">▸</span>
+                                                        <span style="position: absolute; left: 0; color: #38A169; font-weight: bold;">▸</span>
                                                         飲食店HPリニューアル
                                                     </li>
                                                     <li style="position: relative; padding-left: 1.2em; margin-bottom: 0.5em;">
-                                                        <span style="position: absolute; left: 0; color: #60a5fa; font-weight: bold;">▸</span>
+                                                        <span style="position: absolute; left: 0; color: #38A169; font-weight: bold;">▸</span>
                                                         美容医療HP/システム制作
                                                     </li>
                                                     <li style="position: relative; padding-left: 1.2em; margin-bottom: 0.5em;">
-                                                        <span style="position: absolute; left: 0; color: #60a5fa; font-weight: bold;">▸</span>
+                                                        <span style="position: absolute; left: 0; color: #38A169; font-weight: bold;">▸</span>
                                                         空き家バンクLP
                                                     </li>
                                                     <li style="position: relative; padding-left: 1.2em;">
-                                                        <span style="position: absolute; left: 0; color: #60a5fa; font-weight: bold;">▸</span>
+                                                        <span style="position: absolute; left: 0; color: #38A169; font-weight: bold;">▸</span>
                                                         企業HP ノーコードツール
                                                     </li>
                                                 </ul>
@@ -612,7 +612,7 @@
                             </div>
 
                             <div class="timeline-item">
-                                <div class="timeline-date">2025 9月</div>
+                                <div class="timeline-date">2025年9月〜</div>
                                 <div class="timeline-content">
                                     <!-- 会社員セクション -->
                                     <div>
@@ -666,6 +666,7 @@
                                                         <li style="position: relative; padding-left: 1.2em;">
                                                             <span style="position: absolute; left: 0; color: #38A169; font-weight: bold;">▸</span>
                                                             <strong style="color: #1A202C;">月間100商品</strong>の提案
+
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -679,14 +680,18 @@
                                             </div>
                                             
                                             <!-- 右: 画像 -->
-                                            <div style="display: flex; flex-direction: column; gap: 1.25em;">
-                                                <div style="background: #ffffff; padding: 0.75em; border-radius: 10px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 16px rgba(0,0,0,0.12)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 12px rgba(0,0,0,0.06)'">
-                                                    <img src="./images/catalog-sample.png" alt="カタログ制作サンプル1" style="width: 100%; height: auto; border-radius: 6px; display: block;">
-                                                    <p style="text-align: center; margin: 0.6em 0 0 0; font-size: 0.8em; color: #4A5568; font-weight: 600; letter-spacing: 0.05em;">カタログ制作例 1</p>
+                                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75em;">
+                                                <div style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); padding: 0.5em; border-radius: 12px; border: 1px solid rgba(56, 161, 105, 0.15); overflow: hidden; box-shadow: 0 4px 16px rgba(56, 161, 105, 0.08), 0 0 0 1px rgba(56, 161, 105, 0.05); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative;" onmouseover="this.style.transform='translateY(-4px) scale(1.02)'; this.style.boxShadow='0 8px 24px rgba(56, 161, 105, 0.15), 0 0 0 1px rgba(56, 161, 105, 0.1)'; this.style.borderColor='rgba(56, 161, 105, 0.3)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 4px 16px rgba(56, 161, 105, 0.08), 0 0 0 1px rgba(56, 161, 105, 0.05)'; this.style.borderColor='rgba(56, 161, 105, 0.15)'">
+                                                    <div style="position: relative; overflow: hidden; border-radius: 8px; background: #f8fafc;">
+                                                        <img src="./images/catalog-sample.png" alt="カタログ制作サンプル1" style="width: 100%; height: auto; border-radius: 8px; display: block; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                                    </div>
+                                                    <p style="text-align: center; margin: 0.75em 0 0 0; font-size: 0.75em; color: #38A169; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">カタログ制作例 1</p>
                                                 </div>
-                                                <div style="background: #ffffff; padding: 0.75em; border-radius: 10px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 16px rgba(0,0,0,0.12)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 12px rgba(0,0,0,0.06)'">
-                                                    <img src="./images/catalog-sample2.png" alt="カタログ制作サンプル2" style="width: 100%; height: auto; border-radius: 6px; display: block;">
-                                                    <p style="text-align: center; margin: 0.6em 0 0 0; font-size: 0.8em; color: #4A5568; font-weight: 600; letter-spacing: 0.05em;">カタログ制作例 2</p>
+                                                <div style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); padding: 0.5em; border-radius: 12px; border: 1px solid rgba(56, 161, 105, 0.15); overflow: hidden; box-shadow: 0 4px 16px rgba(56, 161, 105, 0.08), 0 0 0 1px rgba(56, 161, 105, 0.05); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative;" onmouseover="this.style.transform='translateY(-4px) scale(1.02)'; this.style.boxShadow='0 8px 24px rgba(56, 161, 105, 0.15), 0 0 0 1px rgba(56, 161, 105, 0.1)'; this.style.borderColor='rgba(56, 161, 105, 0.3)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 4px 16px rgba(56, 161, 105, 0.08), 0 0 0 1px rgba(56, 161, 105, 0.05)'; this.style.borderColor='rgba(56, 161, 105, 0.15)'">
+                                                    <div style="position: relative; overflow: hidden; border-radius: 8px; background: #f8fafc;">
+                                                        <img src="./images/catalog-sample2.png" alt="カタログ制作サンプル2" style="width: 100%; height: auto; border-radius: 8px; display: block; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                                    </div>
+                                                    <p style="text-align: center; margin: 0.75em 0 0 0; font-size: 0.75em; color: #38A169; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">カタログ制作例 2</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -719,7 +724,6 @@
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 
     <!-- PRICINGセクション -->
