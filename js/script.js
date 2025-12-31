@@ -5,13 +5,45 @@ document.addEventListener('DOMContentLoaded', function() {
     const navToggle = document.querySelector('.nav-toggle');
     const navList = document.querySelector('.nav-list');
     const navLinks = document.querySelectorAll('.nav-link');
+    const navOverlay = document.querySelector('.nav-overlay');
     const header = document.querySelector('.header');
+
+    // メニューを閉じる関数
+    function closeMenu() {
+        navList.classList.remove('active');
+        navToggle.classList.remove('active');
+        if (navOverlay) {
+            navOverlay.classList.remove('active');
+        }
+        document.body.style.overflow = ''; // スクロールを復元
+    }
+
+    // メニューを開く関数
+    function openMenu() {
+        navList.classList.add('active');
+        navToggle.classList.add('active');
+        if (navOverlay) {
+            navOverlay.classList.add('active');
+        }
+        document.body.style.overflow = 'hidden'; // スクロールを無効化
+    }
 
     // モバイルメニューの開閉
     if (navToggle) {
-        navToggle.addEventListener('click', function() {
-            navList.classList.toggle('active');
-            navToggle.classList.toggle('active');
+        navToggle.addEventListener('click', function(e) {
+            e.stopPropagation(); // イベントの伝播を停止
+            if (navList.classList.contains('active')) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
+    }
+
+    // オーバーレイをクリックした時にメニューを閉じる
+    if (navOverlay) {
+        navOverlay.addEventListener('click', function() {
+            closeMenu();
         });
     }
 
@@ -44,8 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // モバイルメニューを閉じる
             if (navList.classList.contains('active')) {
-                navList.classList.remove('active');
-                navToggle.classList.remove('active');
+                closeMenu();
             }
         });
     });
@@ -172,8 +203,17 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('keydown', function(e) {
         // Escキーでモバイルメニューを閉じる
         if (e.key === 'Escape' && navList.classList.contains('active')) {
-            navList.classList.remove('active');
-            navToggle.classList.remove('active');
+            closeMenu();
+        }
+    });
+
+    // メニュー外をクリックした時に閉じる
+    document.addEventListener('click', function(e) {
+        if (navList.classList.contains('active')) {
+            // メニュー、トグルボタン、オーバーレイ以外をクリックした場合
+            if (!navList.contains(e.target) && !navToggle.contains(e.target) && !navOverlay.contains(e.target)) {
+                closeMenu();
+            }
         }
     });
 
@@ -200,8 +240,7 @@ document.addEventListener('DOMContentLoaded', function() {
         resizeTimer = setTimeout(function() {
             // ウィンドウサイズが変更された時の処理
             if (window.innerWidth > 768 && navList.classList.contains('active')) {
-                navList.classList.remove('active');
-                navToggle.classList.remove('active');
+                closeMenu();
             }
         }, 250);
     });
@@ -373,19 +412,51 @@ function setupArtCursor() {
   let isVisible = false;
   let shouldShow = false;
   
-  // Worksセクションの見出しを取得
+  // セクションを取得
+  const heroSection = document.querySelector('.parallax-hero-section');
   const worksSection = document.querySelector('.works-section');
   const worksHeader = worksSection ? worksSection.querySelector('.section-header') : null;
   
-  if (!worksHeader) return; // Works見出しがなければ終了
+  if (!heroSection) return;
   
-  // マウスがWorks見出しより下にあるかチェック（統合判定関数）
+  // マウスがHEROセクションまたはWorks見出しより下にあるかチェック
   function checkShouldShow() {
-    if (!worksHeader) return false;
+    // HEROセクション内かチェック
+    if (heroSection) {
+      const heroRect = heroSection.getBoundingClientRect();
+      if (mouseY >= heroRect.top && mouseY <= heroRect.bottom) {
+        return true;
+      }
+    }
     
-    const headerRect = worksHeader.getBoundingClientRect();
-    // Works見出しのbottomより下（見出しから下のエリア）
-    return mouseY > headerRect.bottom;
+    // Works見出しより下かチェック
+    if (worksHeader) {
+      const headerRect = worksHeader.getBoundingClientRect();
+      return mouseY > headerRect.top - 50;
+    }
+    
+    return false;
+  }
+  
+  // HeroまたはWorksセクション内かどうかをチェック
+  function isInHeroOrWorksSection() {
+    // Heroセクション内かチェック
+    if (heroSection) {
+      const heroRect = heroSection.getBoundingClientRect();
+      if (mouseY >= heroRect.top && mouseY <= heroRect.bottom) {
+        return true;
+      }
+    }
+    
+    // Worksセクション内かチェック
+    if (worksSection) {
+      const sectionRect = worksSection.getBoundingClientRect();
+      if (mouseY >= sectionRect.top && mouseY <= sectionRect.bottom) {
+        return true;
+      }
+    }
+    
+    return false;
   }
   
   // カーソルの表示/非表示を更新
@@ -408,6 +479,14 @@ function setupArtCursor() {
         artCursor.style.opacity = '0';
         artCursor.style.transform = 'scale(0)';
       }
+    }
+    
+    // Hero/Worksエリアでは内側の点のみ、それ以外では完全なアートカーソル
+    const isInHeroOrWorks = isInHeroOrWorksSection();
+    if (isInHeroOrWorks) {
+      artCursor.classList.add('inner-dot-only');
+    } else {
+      artCursor.classList.remove('inner-dot-only');
     }
   }
   
@@ -444,10 +523,19 @@ function setupArtCursor() {
   // アニメーションループ（常に実行、表示時のみ更新）
   function animateCursor() {
     if (isVisible) {
-      // スムーズな追従（係数を調整してより滑らかに）
-      cursorX += (mouseX - cursorX) * 0.2;
-      cursorY += (mouseY - cursorY) * 0.2;
-      artCursor.style.transform = `translate3d(${cursorX - 22}px, ${cursorY - 22}px, 0) scale(1)`;
+      // スムーズな追従（係数を上げてより早く追随）
+      cursorX += (mouseX - cursorX) * 0.35;
+      cursorY += (mouseY - cursorY) * 0.35;
+      
+      // Hero/Worksエリアでは内側の点のみ、それ以外では完全なアートカーソル
+      const isInHeroOrWorks = isInHeroOrWorksSection();
+      if (isInHeroOrWorks) {
+        // 内側の点のみ：中心に配置（5px = 10px / 2）
+        artCursor.style.transform = `translate3d(${cursorX - 5}px, ${cursorY - 5}px, 0) scale(1)`;
+      } else {
+        // 完全なアートカーソル：中心に配置（22px = 44px / 2）
+        artCursor.style.transform = `translate3d(${cursorX - 22}px, ${cursorY - 22}px, 0) scale(1)`;
+      }
     }
     requestAnimationFrame(animateCursor);
   }

@@ -189,7 +189,19 @@
 /* =========================================
    Responsive Adjustments
    ========================================= */
+/* Aboutセクションのヘッダーは他のセクションと同じ余白に統一 */
+.about-section-split .section-header {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
 @media (max-width: 900px) {
+  /* セクションヘッダーの余白を統一 */
+  .about-section-split .section-header {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+  
   .split-block, 
   .split-block.reverse {
     flex-direction: column;
@@ -198,21 +210,53 @@
   }
   
   .split-image-wrapper {
-    min-height: 350px;
-    height: 350px; /* 固定高さ */
+    min-height: 300px;
+    height: 300px; /* 固定高さを少し小さく */
   }
   
   /* モバイルでは固定背景を解除（パフォーマンス向上） */
   .split-image.parallax-bg {
     background-attachment: scroll; 
   }
+  
+  /* レスポンシブ時：最初のブロック以外の画像を非表示 */
+  .about-section-split .split-block.reverse .split-image-wrapper,
+  .about-section-split .split-block.split-block-skills .split-image-wrapper {
+    display: none !important;
+  }
+  
+  /* 最初のブロックだけ画像を表示 */
+  .about-section-split .split-block:first-of-type .split-image-wrapper {
+    display: block !important;
+  }
 
   .split-content {
-    padding: 4rem 2rem;
+    padding: 2.5rem 1.5rem; /* 余白を縮小 */
   }
   
   .block-title {
     font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* さらに小さな画面では余白をさらに縮小 */
+  .about-section-split .section-header {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+  
+  .split-content {
+    padding: 2rem 1.25rem; /* さらに小さく */
+  }
+  
+  .split-image-wrapper {
+    min-height: 250px;
+    height: 250px;
+  }
+  
+  .block-title {
+    font-size: 1.75rem;
   }
 }
 

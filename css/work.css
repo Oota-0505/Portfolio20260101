@@ -958,28 +958,6 @@
   }
 }
 
-@media (max-width: 900px) {
-  .nav-list {
-    display: none;
-  }
-  .nav-list.active {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 60px;
-    right: 16px;
-    background: #fff;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-    border-radius: 12px;
-    z-index: 2000;
-    min-width: 160px;
-    padding: 1em 0.5em;
-    gap: 0.5em;
-  }
-  .nav-toggle {
-    display: flex;
-  }
-}
 
 /* ===== スライダー レスポンシブ最適化・リファクタリング ===== */
 @media (max-width: 1024px) and (min-width: 701px) {

@@ -99,6 +99,44 @@ a:hover, button:hover, .footer-contact-btn:hover {
   transition: transform 0.3s ease;
 }
 
+/* Hero/Worksエリア：内側の点のみ表示（小さく、光るエフェクト） */
+#art-cursor.inner-dot-only {
+  width: 10px;
+  height: 10px;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+#art-cursor.inner-dot-only::after {
+  display: block;
+  width: 10px;
+  height: 10px;
+  background: #38A169;
+  box-shadow: 
+    0 0 8px rgba(56, 161, 105, 1),
+    0 0 16px rgba(56, 161, 105, 0.8),
+    0 0 24px rgba(56, 161, 105, 0.6),
+    0 0 32px rgba(56, 161, 105, 0.4);
+  animation: cursorGlow 2s ease-in-out infinite;
+}
+
+@keyframes cursorGlow {
+  0%, 100% {
+    box-shadow: 
+      0 0 8px rgba(56, 161, 105, 1),
+      0 0 16px rgba(56, 161, 105, 0.8),
+      0 0 24px rgba(56, 161, 105, 0.6),
+      0 0 32px rgba(56, 161, 105, 0.4);
+  }
+  50% {
+    box-shadow: 
+      0 0 12px rgba(56, 161, 105, 1),
+      0 0 24px rgba(56, 161, 105, 0.9),
+      0 0 36px rgba(56, 161, 105, 0.7),
+      0 0 48px rgba(56, 161, 105, 0.5);
+  }
+}
+
 /* ホバー時はアートカーソルを非表示にし、指カーソルだけ */
 a:hover ~ #art-cursor,
 button:hover ~ #art-cursor,
@@ -187,18 +225,47 @@ button:hover ~ #art-cursor,
 .nav-toggle {
   display: none;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background: none;
   border: none;
   cursor: pointer;
-  padding: var(--space-2);
+  padding: 8px;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  z-index: 2001;
+  transition: all 0.3s ease;
+}
+
+.nav-toggle:hover {
+  opacity: 0.8;
 }
 
 .hamburger-line {
   width: 24px;
-  height: 2px;
+  height: 2.5px;
   background: var(--color-charcoal);
-  margin: 2px 0;
-  transition: var(--transition);
+  margin: 3px 0;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  border-radius: 2px;
+  position: relative;
+}
+
+/* ハンバーガーメニューがアクティブな時のアニメーション（Xに変わる） */
+.nav-toggle.active .hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+  background: var(--color-primary-green);
+}
+
+.nav-toggle.active .hamburger-line:nth-child(2) {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+.nav-toggle.active .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+  background: var(--color-primary-green);
 }
 
 
@@ -864,23 +931,77 @@ button:hover ~ #art-cursor,
     width: auto;
   }
   
+  /* メニューオーバーレイ */
+  .nav-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .nav-overlay.active {
+    display: block;
+    opacity: 1;
+  }
+  
   .nav-list {
     display: none;
   }
   .nav-list.active {
-    display: flex;
+    display: flex !important;
     flex-direction: column;
-    position: absolute;
-    top: 50px; /* 60pxから50pxに調整 */
-    right: 16px;
+    position: fixed !important;
+    top: 77px !important;
+    right: 10px !important;
+    left: auto !important;
     background: #fff;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
     border-radius: 12px;
     z-index: 2000;
-    min-width: 160px;
-    padding: 1em 0.5em;
-    gap: 0.5em;
+    min-width: 140px;
+    max-width: 140px;
+    padding: 0.8em 0;
+    gap: 0;
+    animation: slideDown 0.3s ease;
+    margin: 0;
   }
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .nav-list.active .nav-item {
+    padding: 0.5em 1em;
+    transition: background-color 0.2s ease;
+  }
+  
+  .nav-list.active .nav-item:hover {
+    background-color: rgba(56, 161, 105, 0.1);
+  }
+  
+  .nav-list.active .nav-link {
+    color: var(--color-charcoal);
+    font-weight: 500;
+  }
+  
+  .nav-list.active .nav-link.active {
+    color: var(--color-primary-green);
+    font-weight: 700;
+  }
+  
   .nav-toggle {
     display: flex;
   }
@@ -981,9 +1102,19 @@ button:hover ~ #art-cursor,
   .timeline-content div[style*="grid-template-columns: 1fr 1fr"] {
     grid-template-columns: 1fr !important;
   }
+  
+  /* 職歴セクションの上の余白を小さく */
+  .about-section-split .container[style*="margin-top: 8rem"] {
+    margin-top: 3rem !important;
+  }
 }
 
 @media (max-width: 480px) {
+  /* 職歴セクションの上の余白をさらに小さく */
+  .about-section-split .container[style*="margin-top: 8rem"] {
+    margin-top: 2rem !important;
+  }
+  
   .nav-container {
     padding: 6px 12px; /* さらに小さく */
   }
