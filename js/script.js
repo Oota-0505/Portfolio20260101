@@ -348,10 +348,11 @@ if (document.querySelector('.related-works-grid')) {
   startSlider();
 })();
 
-// ===== アートカーソル追従（Worksエリアから出現） =====
+// ===== アートカーソル追従（Worksより下のセクションで表示） =====
 function setupArtCursor() {
   // 既存のart-cursorをすべて削除
   document.querySelectorAll('#art-cursor').forEach(el => el.remove());
+  
   // 新規生成
   const artCursor = document.createElement('div');
   artCursor.id = 'art-cursor';
@@ -360,86 +361,137 @@ function setupArtCursor() {
   // 初期状態は非表示
   artCursor.style.opacity = '0';
   artCursor.style.transform = 'scale(0)';
+  artCursor.style.pointerEvents = 'none';
   
+  // マウス位置
   let mouseX = window.innerWidth / 2;
   let mouseY = window.innerHeight / 2;
   let cursorX = mouseX;
   let cursorY = mouseY;
-  let isInWorksSection = false;
   
+  // 表示状態
+  let isVisible = false;
+  let rafId = null;
+  
+  // Worksセクションを取得（これより下のセクションで表示）
   const worksSection = document.querySelector('.works-section');
   
-  // Worksセクションの位置を取得
-  function checkWorksSection() {
-    if (!worksSection) return;
-    
-    const rect = worksSection.getBoundingClientRect();
-    const scrollY = window.scrollY || window.pageYOffset;
-    const sectionTop = rect.top + scrollY;
-    const sectionBottom = sectionTop + rect.height;
-    const currentScroll = scrollY + window.innerHeight / 2;
-    
-    // Worksセクションに入ったかチェック
-    if (currentScroll >= sectionTop - 200 && currentScroll <= sectionBottom + 200) {
-      if (!isInWorksSection) {
-        isInWorksSection = true;
-        // フェードインアニメーション
-        artCursor.style.transition = 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
-        artCursor.style.opacity = '1';
-        artCursor.style.transform = 'scale(1)';
-      }
-    } else {
-      if (isInWorksSection) {
-        isInWorksSection = false;
-        // フェードアウトアニメーション
-        artCursor.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-        artCursor.style.opacity = '0';
-        artCursor.style.transform = 'scale(0)';
-      }
-    }
+  // セクションが表示範囲内かチェック
+  function isSectionInView(section) {
+    if (!section) return false;
+    const rect = section.getBoundingClientRect();
+    return rect.bottom > 0 && rect.top < window.innerHeight;
   }
   
-  // マウス移動イベント
-  document.addEventListener('mousemove', (e) => {
+  // マウスが対象セクション内にあるかチェック
+  function isMouseInTargetSections(x, y) {
+    if (!worksSection) return false;
+    
+    const worksRect = worksSection.getBoundingClientRect();
+    // Worksセクションより下（y座標がworksセクションのbottomより下）
+    return y > worksRect.bottom;
+  }
+  
+  // カーソルを表示
+  function showCursor() {
+    if (isVisible) return;
+    isVisible = true;
+    artCursor.style.transition = 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    artCursor.style.opacity = '1';
+    artCursor.style.transform = 'scale(1)';
+  }
+  
+  // カーソルを非表示
+  function hideCursor() {
+    if (!isVisible) return;
+    isVisible = false;
+    artCursor.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    artCursor.style.opacity = '0';
+    artCursor.style.transform = 'scale(0)';
+  }
+  
+  // マウス移動イベント（throttle適用）
+  let lastMoveTime = 0;
+  const throttleDelay = 16; // 約60fps
+  
+  function handleMouseMove(e) {
+    const now = Date.now();
+    if (now - lastMoveTime < throttleDelay) return;
+    lastMoveTime = now;
+    
     mouseX = e.clientX;
     mouseY = e.clientY;
     
-    // Worksセクション内でマウスが動いた時のみ表示
-    if (worksSection) {
-      const rect = worksSection.getBoundingClientRect();
-      const isMouseInWorks = (
-        mouseX >= rect.left &&
-        mouseX <= rect.right &&
-        mouseY >= rect.top &&
-        mouseY <= rect.bottom
-      );
-      
-      if (isMouseInWorks && !isInWorksSection) {
-        isInWorksSection = true;
-        artCursor.style.transition = 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
-        artCursor.style.opacity = '1';
-        artCursor.style.transform = 'scale(1)';
-      } else if (!isMouseInWorks && isInWorksSection) {
-        // マウスがWorksセクション外に出た時は非表示にしない（スクロールで制御）
-        // ここでは何もしない
-      }
+    // Worksセクションより下でマウスが動いているかチェック
+    if (isMouseInTargetSections(mouseX, mouseY)) {
+      showCursor();
+    } else {
+      hideCursor();
     }
-  });
+  }
   
-  // スクロールイベント
-  window.addEventListener('scroll', checkWorksSection);
-  // 初期チェック
-  checkWorksSection();
+  // スクロールイベント（throttle適用）
+  let lastScrollTime = 0;
+  function handleScroll() {
+    const now = Date.now();
+    if (now - lastScrollTime < throttleDelay) return;
+    lastScrollTime = now;
+    
+    // Worksセクションより下のセクションが表示範囲内にあるかチェック
+    const aboutSection = document.querySelector('.about-section-split');
+    const pricingSection = document.querySelector('.pricing-section');
+    
+    const isAboutVisible = isSectionInView(aboutSection);
+    const isPricingVisible = isSectionInView(pricingSection);
+    
+    if (isAboutVisible || isPricingVisible) {
+      // マウス位置も確認
+      if (isMouseInTargetSections(mouseX, mouseY)) {
+        showCursor();
+      }
+    } else {
+      hideCursor();
+    }
+  }
   
+  // イベントリスナー登録
+  document.addEventListener('mousemove', handleMouseMove, { passive: true });
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  
+  // リサイズ時の処理
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      // リサイズ後、現在の状態を再チェック
+      if (isMouseInTargetSections(mouseX, mouseY)) {
+        showCursor();
+      } else {
+        hideCursor();
+      }
+    }, 100);
+  }, { passive: true });
+  
+  // アニメーションループ
   function animateCursor() {
-    if (isInWorksSection) {
-      cursorX += (mouseX - cursorX) * 0.18;
-      cursorY += (mouseY - cursorY) * 0.18;
+    if (isVisible) {
+      // スムーズな追従
+      cursorX += (mouseX - cursorX) * 0.15;
+      cursorY += (mouseY - cursorY) * 0.15;
       artCursor.style.transform = `translate3d(${cursorX - 22}px, ${cursorY - 22}px, 0) scale(1)`;
     }
-    requestAnimationFrame(animateCursor);
+    rafId = requestAnimationFrame(animateCursor);
   }
+  
+  // アニメーション開始
   animateCursor();
+  
+  // 初期チェック
+  setTimeout(() => {
+    if (isMouseInTargetSections(mouseX, mouseY)) {
+      showCursor();
+    }
+  }, 100);
 }
 setupArtCursor();
 
