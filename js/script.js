@@ -373,8 +373,9 @@ function setupArtCursor() {
   let isVisible = false;
   let rafId = null;
   
-  // Worksセクションを取得（これより下のセクションで表示）
+  // Worksセクションと見出しを取得
   const worksSection = document.querySelector('.works-section');
+  const worksHeader = worksSection ? worksSection.querySelector('.section-header') : null;
   
   // セクションが表示範囲内かチェック
   function isSectionInView(section) {
@@ -383,13 +384,13 @@ function setupArtCursor() {
     return rect.bottom > 0 && rect.top < window.innerHeight;
   }
   
-  // マウスが対象セクション内にあるかチェック
+  // マウスがWorks見出しより下にあるかチェック
   function isMouseInTargetSections(x, y) {
-    if (!worksSection) return false;
+    if (!worksHeader) return false;
     
-    const worksRect = worksSection.getBoundingClientRect();
-    // Worksセクションより下（y座標がworksセクションのbottomより下）
-    return y > worksRect.bottom;
+    const headerRect = worksHeader.getBoundingClientRect();
+    // Works見出しのbottomより下（見出しから下のエリア）
+    return y > headerRect.bottom;
   }
   
   // カーソルを表示
@@ -437,20 +438,22 @@ function setupArtCursor() {
     if (now - lastScrollTime < throttleDelay) return;
     lastScrollTime = now;
     
-    // Worksセクションより下のセクションが表示範囲内にあるかチェック
-    const aboutSection = document.querySelector('.about-section-split');
-    const pricingSection = document.querySelector('.pricing-section');
-    
-    const isAboutVisible = isSectionInView(aboutSection);
-    const isPricingVisible = isSectionInView(pricingSection);
-    
-    if (isAboutVisible || isPricingVisible) {
-      // マウス位置も確認
-      if (isMouseInTargetSections(mouseX, mouseY)) {
-        showCursor();
+    // Works見出しより下のエリアが表示範囲内にあるかチェック
+    if (worksHeader) {
+      const headerRect = worksHeader.getBoundingClientRect();
+      const scrollY = window.scrollY || window.pageYOffset;
+      const headerBottom = headerRect.bottom + scrollY;
+      const currentScroll = scrollY + window.innerHeight / 2;
+      
+      // Works見出しより下にスクロールしている場合
+      if (currentScroll > headerBottom - 200) {
+        // マウス位置も確認
+        if (isMouseInTargetSections(mouseX, mouseY)) {
+          showCursor();
+        }
+      } else {
+        hideCursor();
       }
-    } else {
-      hideCursor();
     }
   }
   
