@@ -1,41 +1,181 @@
 .footer {
-  background: linear-gradient(90deg, #14532d 0%, #166534 100%); /* 濃いグリーン */
-  color: #f0fdf4;
-  padding: 2.5em 0 1.2em 0;
-  text-align: center;
+    background: linear-gradient(135deg, #14532d 0%, #064e3b 100%); /* グリーン系グラデーション */
+    color: #f0fdf4;
+    padding: 4rem 0 2rem;
+    position: relative;
+    overflow: hidden;
 }
+
+/* 背景装飾 */
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #4ade80, #22c55e, #4ade80);
+}
+
 .footer-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    max-width: 800px;
+    margin: 0 auto;
 }
-.footer-contact {
-  margin-bottom: 1em;
+
+/* 情報グリッド */
+.footer-info-grid {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+    flex-wrap: wrap;
 }
-.footer-email-btn, .footer-contact-btn {
-  display: inline-block;
-  padding: 0.8em 2.2em;
-  border-radius: 2em;
-  font-size: 1.1rem;
-  font-weight: 600;
-  background: linear-gradient(90deg, #166534 0%, #4ade80 100%);
-  color: #fff;
-  border: 2px solid #b9fbc0;
-  text-shadow: 0 1px 4px rgba(20, 83, 45, 0.18);
-  box-shadow: 0 2px 16px 0 rgba(20,83,45,0.08);
-  transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
-  cursor: pointer;
-  text-decoration: none;
+
+/* 情報アイテムカード */
+.footer-info-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 280px;
+    max-width: 400px;
+    position: relative;
+    overflow: hidden;
 }
-.footer-email-btn:hover, .footer-contact-btn:hover {
-  background: linear-gradient(90deg, #4ade80 0%, #166534 100%);
-  color: #fff;
-  transform: translateY(-2px) scale(1.04);
-  box-shadow: 0 4px 24px 0 rgba(20,83,45,0.18);
+
+.footer-info-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(74, 222, 128, 0.5); /* 明るいグリーン */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
-.footer-text {
-  color: #b9fbc0;
-  font-size: 0.95em;
-  margin-top: 0.5em;
-} 
+
+/* アイコン */
+.info-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+/* Chatworkロゴ画像ラッパー */
+.info-logo-wrapper {
+    min-width: 140px;
+    max-width: 180px;
+    height: 60px; /* 高さを増やしてロゴを大きく表示 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff; /* ロゴが見やすいように白背景 */
+    padding: 6px 14px; /* 余白調整 */
+    border-radius: 8px;
+}
+
+.chatwork-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* 詳細情報 */
+.info-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.info-label {
+    font-size: 0.85rem;
+    color: #86efac; /* 薄いグリーン */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+}
+
+.info-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+}
+
+/* リンクスタイル */
+.info-value.link {
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.info-value.link:hover {
+    color: #4ade80;
+    text-decoration: underline;
+}
+
+/* コピーターゲット */
+.info-value.copy-target {
+    cursor: pointer;
+    position: relative;
+}
+
+.info-value.copy-target:hover {
+    color: #4ade80;
+}
+
+/* コピーヒント */
+.copy-hint {
+    font-size: 0.7rem;
+    color: #4ade80;
+    opacity: 0;
+    transform: translateY(5px);
+    transition: all 0.2s ease;
+    position: absolute;
+    bottom: 0.5rem;
+    right: 1rem;
+}
+
+.footer-info-item:hover .copy-hint {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* フッター下部 */
+.footer-bottom {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.footer-copyright {
+    color: #bbf7d0; /* 非常に薄いグリーン */
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+    .footer-info-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .footer-info-item {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .info-logo-wrapper {
+        width: 120px;
+    }
+}
