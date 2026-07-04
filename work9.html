@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="css/reset/reset.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/work.css">
+    <link rel="stylesheet" href="css/footer.css">
     <link rel="icon" href="images/icons8-calla-lily-64 (1).png" type="image/png">
 </head>
 <body>
@@ -32,35 +33,23 @@
         <nav class="nav-container">
             <div class="nav-brand">
                 <a href="index.html" class="brand-link">
-                    <img src="./images/headerlogo.png" alt="Mihito Oota" class="brand-logo">
+                    <img src="./images/headerlogo.png" alt="Mihto Oota" class="brand-logo">
                 </a>
             </div>
             <ul class="nav-list">
                 <li class="nav-item">
+                    <a href="index.html#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
                     <a href="index.html#works" class="nav-link active">Works</a>
                 </li>
                 <li class="nav-item">
-                    <a href="index.html#voice" class="nav-link">Voice</a>
-                </li>
-                <li class="nav-item">
-                    <a href="index.html#personal" class="nav-link">Personal</a>
-                </li>
-                <li class="nav-item">
-                    <a href="index.html#career" class="nav-link">Career</a>
+                    <a href="index.html#about" class="nav-link">About</a>
                 </li>
                 <li class="nav-item">
                     <a href="index.html#pricing" class="nav-link">Pricing</a>
                 </li>
             </ul>
-            <div class="header-contact-actions" aria-label="連絡先">
-                <button type="button" class="header-contact-icon header-chatwork copy-target" data-copy="1oneyidsbboz0" aria-label="Chatwork IDをコピー">
-                    <img src="images/chatwork-header-icon.png" alt="" class="chatwork-logo-img">
-                    <span class="copy-hint">Copied!</span>
-                </button>
-                <a href="mailto:claudemonet0505@gmail.com" class="header-contact-icon" aria-label="メールで連絡">
-                    <img src="images/gmail.svg" alt="" class="mail-icon-img">
-                </a>
-            </div>
             <button class="nav-toggle" aria-label="メニューを開く">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
@@ -69,6 +58,22 @@
         </nav>
     </header>
 
+    <!-- パンくずリスト -->
+    <nav class="breadcrumb">
+        <div class="container">
+            <ol class="breadcrumb-list">
+                <li class="breadcrumb-item">
+                    <a href="index.html" class="breadcrumb-link">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="index.html#works" class="breadcrumb-link">Works</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    串かつ さじろう様 ホームページリニューアル
+                </li>
+            </ol>
+        </div>
+    </nav>
 
     <!-- メインコンテンツ -->
     <main class="work-detail">
@@ -99,7 +104,7 @@
         <section class="work-image-section">
             <div class="container">
                 <div class="work-image-container">
-                    <img src="./images/kushikatsu-sajiro.jpg" alt="串かつ さじろう様 ホームページリニューアル" class="work-main-image">
+                    <img src="./images/串かつ.png" alt="串かつ さじろう様 ホームページリニューアル" class="work-main-image">
                 </div>
             </div>
         </section>
@@ -178,7 +183,7 @@
                             <h2 class="content-title">成果・特徴</h2>
                             <ul class="content-list">
                                 <li><strong>短期納品:</strong> 1週間で初回納品</li>
-                                <li><strong>フルスタック対応:</strong> ヘッダーはカスタムPHP</li>
+                                <li><strong>フルスタック対応:</strong> ヘッダーはカスタムphp</li>
                                 <li><strong>CMS化:</strong> クライアント様が自由に更新可能な仕組みを構築</li>
                                 <li><strong>SEO対策:</strong> 検索エンジン最適化による集客効果の向上</li>
                                 <li><strong>レスポンシブ:</strong> スマートフォンからの閲覧に完全対応</li>
@@ -238,6 +243,7 @@
     </main>
 
     <!-- フッター -->
+    <div id="footer-include"></div>
     <script src="js/script.js"></script>
 </body>
 </html>

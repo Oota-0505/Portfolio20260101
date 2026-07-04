@@ -1,0 +1,30 @@
+// レスポンシブmixin
+@mixin respond($breakpoint) {
+  @if $breakpoint == lg {
+    @media (max-width: $breakpoint-lg) { @content; }
+  } @else if $breakpoint == md {
+    @media (max-width: $breakpoint-md) { @content; }
+  } @else if $breakpoint == sm {
+    @media (max-width: $breakpoint-sm) { @content; }
+  } @else if $breakpoint == xs {
+    @media (max-width: $breakpoint-xs) { @content; }
+  }
+}
+
+// flex中央揃え
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// ボックスシャドウ
+@mixin shadow($type: md) {
+  @if $type == sm {
+    box-shadow: $shadow-sm;
+  } @else if $type == md {
+    box-shadow: $shadow-md;
+  } @else if $type == lg {
+    box-shadow: $shadow-lg;
+  }
+} 
