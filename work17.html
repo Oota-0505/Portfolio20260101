@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>園芸カタログ企画のAIエージェント化 | 太田三一斗 Portfolio</title>
+    <meta name="description" content="毎月約8時間かかっていた園芸カタログの企画準備を、AIエージェントとルールベース処理で約1時間まで短縮。人の確認を組み込んだ設計で、確認精度と再現性も向上させた業務改善の実績です。">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WNMP1BCECG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WNMP1BCECG');
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/reset/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/work.css">
+    <link rel="icon" href="images/icons8-calla-lily-64 (1).png" type="image/png">
+</head>
+<body>
+    <!-- ヘッダーナビゲーション -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" class="brand-link">
+                    <img src="./images/headerlogo.png" alt="Mihito Oota" class="brand-logo">
+                </a>
+            </div>
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="index.html#works" class="nav-link active">Works</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#voice" class="nav-link">Voice</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#personal" class="nav-link">Personal</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#career" class="nav-link">Career</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#pricing" class="nav-link">Pricing</a>
+                </li>
+            </ul>
+            <div class="header-contact-actions" aria-label="連絡先">
+                <button type="button" class="header-contact-icon header-chatwork copy-target" data-copy="1oneyidsbboz0" aria-label="Chatwork IDをコピー">
+                    <img src="images/chatwork-header-icon.png" alt="" class="chatwork-logo-img">
+                    <span class="copy-hint">Copied!</span>
+                </button>
+                <a href="mailto:claudemonet0505@gmail.com" class="header-contact-icon" aria-label="メールで連絡">
+                    <img src="images/gmail.svg" alt="" class="mail-icon-img">
+                </a>
+            </div>
+            <button class="nav-toggle" aria-label="メニューを開く">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </nav>
+    </header>
+
+
+    <!-- メインコンテンツ -->
+    <main class="work-detail">
+        <!-- プロジェクトヘッダー -->
+        <section class="work-hero">
+            <div class="container">
+                <div class="work-hero-content">
+                    <h1 class="work-title">園芸カタログ企画のAIエージェント化</h1>
+                    <p class="work-subtitle">毎月約8時間の企画準備を、AIエージェント×ルールベース処理で約1時間に短縮。作業はAI、企画とコミュニケーションは人間が担う分担設計</p>
+                    <div class="work-meta">
+                        <div class="work-tags">
+                            <span class="tag">AIエージェント</span>
+                            <span class="tag">業務再設計</span>
+                            <span class="tag">Excel自動化</span>
+                            <span class="tag">業務設計</span>
+                            <span class="tag">データクレンジング</span>
+                            <span class="tag">NDA</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- プロジェクト画像 -->
+        <section class="work-image-section">
+            <div class="container">
+                <div class="work-image-container">
+                    <img src="./images/catalog-ai-agents.jpg" alt="4体のAIエージェントが協力して園芸カタログを制作しているイラスト" class="work-main-image">
+                </div>
+            </div>
+        </section>
+
+        <!-- プロジェクト詳細 -->
+        <section class="work-content">
+            <div class="container">
+                <div class="work-content-grid">
+                    <!-- メインコンテンツ -->
+                    <div class="work-main-content">
+                        <div class="content-section">
+                            <h2 class="content-title">概要</h2>
+                            <p class="content-text">
+                                毎月発生する園芸カタログの企画準備業務を、AIエージェントとルールベース処理を組み合わせて半自動化しました。
+                                前年のカテゴリーシート、当年の継続確認表、新商品企画書を照合し、掲載可能商品の抽出、掲載不可商品の除外、売上転記、
+                                未掲載候補の作成、ページ候補の提案、最終チェックまでを一つの業務フローとして設計しています。
+                            </p>
+                            <p class="content-text">
+                                重要なのは、AIに企画判断を丸投げしなかったことです。間違えてはいけないコード照合や掲載可否判定はルールベースで自動化し、
+                                表記ゆれの吸収やページ候補などの文脈が必要な処理はAIが支援、最終的に何を掲載しどこへ配置するかは人間が判断します。
+                                この分担により、浮いた時間を新商品企画・画像提案・取引先とのコミュニケーションへ再配分しました。
+                            </p>
+                            <p class="content-text">
+                                NDA契約のため、実データ、商品マスタ、取引先名、価格情報は掲載していません。
+                            </p>
+                        </div>
+
+                        <div class="content-section">
+                            <h2 class="content-title">成果</h2>
+                            <div class="tech-grid">
+                                <div class="tech-item">
+                                    <h3 class="tech-category">総作業時間</h3>
+                                    <p class="tech-detail">約8時間 → 約1時間</p>
+                                </div>
+                                <div class="tech-item">
+                                    <h3 class="tech-category">時間削減率</h3>
+                                    <p class="tech-detail">約87.5%（作業速度 約8倍）</p>
+                                </div>
+                                <div class="tech-item">
+                                    <h3 class="tech-category">確認精度</h3>
+                                    <p class="tech-detail">最終確認項目を標準化し、手作業より向上</p>
+                                </div>
+                                <div class="tech-item">
+                                    <h3 class="tech-category">人間の時間</h3>
+                                    <p class="tech-detail">照合・転記から、企画・提案・調整へ再配分</p>
+                                </div>
+                            </div>
+                            <p class="content-text">
+                                ※作業時間は商品数や確認事項により変動します。コード照合だけで約5時間、候補整理・新商品配置・最終確認まで含めると
+                                約8時間かかっていた業務を、約1時間で「判断可能な状態」まで整えられるようにした実績です。
+                            </p>
+                        </div>
+
+                        <div class="content-section">
+                            <h2 class="content-title">背景・課題</h2>
+                            <ul class="content-list">
+                                <li>前年カテゴリーシートの商品コードを、当年の継続確認表で1件ずつ検索していた</li>
+                                <li>同じ商品コードにOKと×が混在し、単純な自動判定では誤除外・誤掲載のリスクがあった</li>
+                                <li>全角半角・スペース・旧名・規格表記など、商品名の表記ゆれで完全一致検索が使えなかった</li>
+                                <li>提出用Excelは取引先間で約15年使われている固定フォーマットで、再保存だけで書式が崩れるリスクがあった</li>
+                                <li>作業は定型的だが商品数が多く、時間がかかるうえに見落としも発生しやすい状態だった</li>
+                            </ul>
+                        </div>
+
+                        <div class="content-section">
+                            <h2 class="content-title">AIと人間の役割分担</h2>
+                            <div class="tech-grid">
+                                <div class="tech-item">
+                                    <h3 class="tech-category">ルールベース処理</h3>
+                                    <p class="tech-detail">商品コード完全一致、×判定、重複検出、売上転記、件数照合</p>
+                                </div>
+                                <div class="tech-item">
+                                    <h3 class="tech-category">AIエージェント</h3>
+                                    <p class="tech-detail">商品名の表記ゆれ吸収、商品区分の推定、配置ページ候補、作業手順の更新</p>
+                                </div>
+                                <div class="tech-item">
+                                    <h3 class="tech-category">人間</h3>
+                                    <p class="tech-detail">混在コードの最終判断、新商品企画、掲載商品の選定、ページ構成、制作会社との調整</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="content-section">
+                            <h2 class="content-title">業務フロー</h2>
+                            <ul class="content-list">
+                                <li><strong>フェーズ1（自動整理）:</strong> 継続商品の照合、×商品の除外、売上反映、未掲載候補と売上上位候補の自動抽出</li>
+                                <li><strong>人間の判断:</strong> OKと×が混在するコードだけを早期に一覧化し、担当者・上司が掲載可否を判断</li>
+                                <li><strong>フェーズ2（AI仮配置）:</strong> 担当者の許可後、売上上位候補と新商品をページごとに仮配置。AIは確定せず「たたき台」を作る</li>
+                                <li><strong>最終チェック:</strong> ×混入・コード重複・転記漏れ・書式を機械的に再確認</li>
+                                <li><strong>公式Excelへの転記:</strong> 15年使われている旧フォーマットは変更せず、人間が値だけを転記する二層構造で運用</li>
+                            </ul>
+                        </div>
+
+                        <div class="content-section">
+                            <h2 class="content-title">工夫した点</h2>
+                            <ul class="content-list">
+                                <li><strong>AIだけに任せない:</strong> 正解が明確な処理は生成AIの推測に任せず、決定的なルールで確認。AIは文脈を読む処理に限定しました。</li>
+                                <li><strong>人間の判断を最後に残す:</strong> 季節感、ページテーマ、商品バランス、新商品の見せ方は人間が判断。AIは下準備を整える役割に徹しています。</li>
+                                <li><strong>既存フォーマットを尊重:</strong> 一度は整形まで自動化しましたが、運用フィードバックを受け、公式ファイルは変更しない転記方式へ改善。互換性と現場定着を優先しました。</li>
+                                <li><strong>判断ルールをMarkdownへ蓄積:</strong> 作業中に判明したルールをドキュメント化し、翌月も同じ品質で再現できるようにしました。</li>
+                            </ul>
+                        </div>
+
+                        <div class="content-section">
+                            <h2 class="content-title">実績例（ある月の企画）</h2>
+                            <ul class="content-list">
+                                <li>カテゴリーシート内の商品コード244件を再照合</li>
+                                <li>未掲載上位候補43件を16ページへ仮配置、新商品7件を商品特性に合わせて分散配置</li>
+                                <li>商品コード重複 0件／×商品の混入 0件／未確認の混在コード 0件</li>
+                                <li>時間短縮だけでなく、最終確認項目の標準化により手作業よりも確認精度を向上</li>
+                            </ul>
+                        </div>
+
+                        <div class="content-section">
+                            <h2 class="content-title">この実績で示せること</h2>
+                            <ul class="content-list">
+                                <li>AIを文章生成だけでなく、実務の業務設計に使える</li>
+                                <li>ルールベース処理、AI、人間判断を適切に分担できる</li>
+                                <li>Excel中心の既存業務を、レガシー環境を尊重しながら段階的に改善できる</li>
+                                <li>現場フィードバックを受けて運用を修正できる</li>
+                                <li>削減した時間を、新商品企画や取引先とのコミュニケーションへ再配分し、売上・品質につなげられる</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- サイドバー -->
+                    <aside class="work-sidebar">
+                        <div class="sidebar-section">
+                            <h3 class="sidebar-title">プロジェクト情報</h3>
+                            <dl class="project-details">
+                                <dt>案件種別</dt>
+                                <dd>業務効率化・AIエージェント設計</dd>
+
+                                <dt>対象業務</dt>
+                                <dd>園芸カタログの企画準備（月次業務）</dd>
+
+                                <dt>役割</dt>
+                                <dd>業務ヒアリング、自動化範囲の設計、照合ロジック設計、人の確認を挟む承認フローの設計、ドキュメント化</dd>
+
+                                <dt>使用技術</dt>
+                                <dd>AIエージェント, ルールベース処理, Excel自動化, Markdownによる業務ルール管理</dd>
+
+                                <dt>公開情報</dt>
+                                <dd>NDAのため実データ・取引先名・価格情報は非公開</dd>
+                            </dl>
+                        </div>
+
+                        <div class="sidebar-section">
+                            <h3 class="sidebar-title">掲載方針</h3>
+                            <p class="sidebar-text">
+                                実際の商品データや取引先情報は掲載せず、業務フローと設計の考え方を中心に、生成イメージと抽象化した説明で伝えています。
+                            </p>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <!-- 他の作品（JavaScriptで自動生成） -->
+        <section class="related-works">
+            <div class="container">
+                <h2 class="section-title">Other Works</h2>
+                <div class="slider-container">
+                    <div class="related-works-grid">
+                        <!-- JavaScriptで自動生成されます -->
+                    </div>
+                </div>
+                <div class="back-to-works">
+                    <a href="index.html#works" class="btn btn-primary">全ての作品を見る</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッター -->
+    <script src="js/script.js"></script>
+</body>
+</html>

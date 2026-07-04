@@ -24,7 +24,6 @@
     <link rel="stylesheet" href="css/reset/reset.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/work.css">
-    <link rel="stylesheet" href="css/footer.css">
     <link rel="icon" href="images/icons8-calla-lily-64 (1).png" type="image/png">
 </head>
 <body>
@@ -33,23 +32,35 @@
         <nav class="nav-container">
             <div class="nav-brand">
                 <a href="index.html" class="brand-link">
-                    <img src="./images/headerlogo.png" alt="Mihto Oota" class="brand-logo">
+                    <img src="./images/headerlogo.png" alt="Mihito Oota" class="brand-logo">
                 </a>
             </div>
             <ul class="nav-list">
                 <li class="nav-item">
-                    <a href="index.html#home" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
                     <a href="index.html#works" class="nav-link active">Works</a>
                 </li>
                 <li class="nav-item">
-                    <a href="index.html#about" class="nav-link">About</a>
+                    <a href="index.html#voice" class="nav-link">Voice</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#personal" class="nav-link">Personal</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#career" class="nav-link">Career</a>
                 </li>
                 <li class="nav-item">
                     <a href="index.html#pricing" class="nav-link">Pricing</a>
                 </li>
             </ul>
+            <div class="header-contact-actions" aria-label="連絡先">
+                <button type="button" class="header-contact-icon header-chatwork copy-target" data-copy="1oneyidsbboz0" aria-label="Chatwork IDをコピー">
+                    <img src="images/chatwork-header-icon.png" alt="" class="chatwork-logo-img">
+                    <span class="copy-hint">Copied!</span>
+                </button>
+                <a href="mailto:claudemonet0505@gmail.com" class="header-contact-icon" aria-label="メールで連絡">
+                    <img src="images/gmail.svg" alt="" class="mail-icon-img">
+                </a>
+            </div>
             <button class="nav-toggle" aria-label="メニューを開く">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
@@ -58,22 +69,6 @@
         </nav>
     </header>
 
-    <!-- パンくずリスト -->
-    <nav class="breadcrumb">
-        <div class="container">
-            <ol class="breadcrumb-list">
-                <li class="breadcrumb-item">
-                    <a href="index.html" class="breadcrumb-link">Home</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a href="index.html#works" class="breadcrumb-link">Works</a>
-                </li>
-                <li class="breadcrumb-item active">
-                    書籍横断検索アプリ
-                </li>
-            </ol>
-        </div>
-    </nav>
 
     <!-- メインコンテンツ -->
     <main class="work-detail">
@@ -103,8 +98,13 @@
         <!-- プロジェクト画像 -->
         <section class="work-image-section">
             <div class="container">
-                <div class="work-image-container">
-                    <img src="./images/booksearch.png" alt="書籍横断検索アプリ" class="work-main-image">
+                <div class="work-image-grid">
+                    <div class="work-image-container">
+                        <img src="./images/IMG_2566.jpeg" alt="書籍横断検索アプリの検索画面" class="work-main-image">
+                    </div>
+                    <div class="work-image-container">
+                        <img src="./images/IMG_2567.jpeg" alt="書籍横断検索アプリの検索結果画面" class="work-main-image">
+                    </div>
                 </div>
             </div>
         </section>
@@ -125,6 +125,10 @@
                                 また、Amazonの検索結果ページへのリンクも生成され、購入の際の参考にできます。
                                 さらに、Google Books APIを利用して、検索した書籍の概要（説明文）を自動で表示する機能も実装しています。
                             </p>
+                            <p class="content-text">
+                                新しい画面では、メディコスと可児市立図書館（ミライブ）のマイページ導線を上部に配置。
+                                検索だけでなく、ログイン後の貸出状況確認や利用者ページへの移動もしやすくし、日常的に使いやすい構成へ改善しました。
+                            </p>
                         </div>
 
                         <div class="content-section">
@@ -137,6 +141,7 @@
                                 <li>複数サイトを行き来する手間を削減</li>
                                 <li>在庫状況を一目で比較</li>
                                 <li>各サイトの検索結果ページへ直接アクセス可能</li>
+                                <li>メディコス・可児市立図書館（ミライブ）のマイページへ移動しやすい導線を追加</li>
                                 <li>書籍の概要を自動表示（Google Books API）</li>
                             </ul>
                         </div>
@@ -177,6 +182,7 @@
                                 <li><strong>一括検索:</strong> 4つの施設（岐阜市立図書館、可児市立図書館、岐阜駅本屋、草叢BOOKS）を同時検索</li>
                                 <li><strong>在庫状況表示:</strong> 各施設の在庫状況を「✅ あり」「❌ なし」「⚠️ 貸出中」で表示</li>
                                 <li><strong>検索結果リンク:</strong> 各サイトの検索結果ページへ直接アクセス可能（別タブで開く）</li>
+                                <li><strong>マイページ導線:</strong> メディコス・可児市立図書館（ミライブ）のマイページボタンを上部に配置し、ログイン後の確認動線を改善</li>
                                 <li><strong>Amazon連携:</strong> Amazonの検索結果ページへのリンクを自動生成</li>
                                 <li><strong>検索履歴機能:</strong> 過去5件の検索履歴を保存し、ボタンで再検索可能</li>
                                 <li><strong>書籍概要表示:</strong> Google Books APIから取得した説明文を自動表示</li>
@@ -199,6 +205,7 @@
                                 <li><strong>可児市立図書館:</strong> OPWSRCH1.CSPにアクセスしてセッション開始</li>
                                 <li><strong>岐阜駅本屋:</strong> GETリクエストで直接アクセス可能</li>
                                 <li><strong>草叢BOOKS:</strong> 2段階（検索→在庫ページ生成）で処理</li>
+                                <li><strong>利用者導線:</strong> ログインやマイページ確認に迷わないよう、頻繁に使う導線を検索画面上部に集約</li>
                             </ul>
 
                             <h3 style="font-size: 1.1rem; font-weight: 600; color: #2D3748; margin-top: 1.5rem; margin-bottom: 0.75rem;">3. エラーハンドリング</h3>
@@ -300,22 +307,8 @@
         </section>
     </main>
 
-    <!-- フッター -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-contact">
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfFpmkqPPGBVQvQDh-q-wCnGGy6hnK6bMnE2DzCxYlC2ubJ5Q/viewform?usp=sf_link" class="btn btn-primary" target="_blank" rel="noopener">Contact</a>
-                </div>
-                <div class="footer-copyright">
-                    <p>&copy; 2025 Mihto Oota. All rights reserved.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
 
     <!-- JavaScript -->
     <script src="js/script.js"></script>
 </body>
 </html>
-

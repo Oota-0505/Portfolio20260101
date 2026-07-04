@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         navToggle.classList.remove('active');
         if (navOverlay) navOverlay.classList.remove('active');
         document.body.style.overflow = '';
+        updateHeaderState();
     }
 
     function openMenu() {
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
         navToggle.classList.add('active');
         if (navOverlay) navOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
+        header.classList.remove('is-transparent');
     }
 
     if (navToggle) {
@@ -53,20 +55,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    let lastScrollTop = 0;
+    function updateHeaderState() {
+        const contentSection = document.getElementById('contentSection');
+        const isTopPage = !!contentSection && (location.pathname.endsWith('/') || location.pathname.endsWith('index.html') || location.pathname.split('/').pop() === '');
+        const threshold = contentSection ? contentSection.offsetTop - header.offsetHeight - 12 : 0;
+        const shouldBeTransparent = isTopPage && window.scrollY < threshold && !navList.classList.contains('active');
+
+        header.classList.toggle('is-transparent', shouldBeTransparent);
+        header.classList.toggle('is-solid', !shouldBeTransparent);
+    }
+
+    updateHeaderState();
+
     window.addEventListener('scroll', function() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        if (scrollTop > 50) {
-            header.style.background = 'rgba(255, 255, 255, 0.98)';
-            header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-        } else {
-            header.style.background = 'rgba(255, 255, 255, 0.95)';
-            header.style.boxShadow = 'none';
-        }
-        
+        updateHeaderState();
         updateActiveNavigation();
-        lastScrollTop = scrollTop;
     });
 
     function updateActiveNavigation() {
@@ -96,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
 
-    const animateElements = document.querySelectorAll('.work-card, .about-content, .skills-section, .timeline-section, .fade-in-up, .parallax-slide-left, .parallax-slide-right, .parallax-fade-down');
+    const animateElements = document.querySelectorAll('.voice-showcase, .work-card, .timeline-section, .fade-in-up, .parallax-slide-left, .parallax-slide-right, .parallax-fade-down');
     animateElements.forEach(el => {
         if (!el.classList.contains('fade-in-up') && 
             !el.classList.contains('parallax-slide-left') && 
@@ -154,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.addEventListener('click', function(e) {
         if (navList.classList.contains('active')) {
-            if (!navList.contains(e.target) && !navToggle.contains(e.target) && !navOverlay.contains(e.target)) {
+            if (!navList.contains(e.target) && !navToggle.contains(e.target) && (!navOverlay || !navOverlay.contains(e.target))) {
                 closeMenu();
             }
         }
@@ -201,6 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(function() {
             if (window.innerWidth > 768 && navList.classList.contains('active')) closeMenu();
+            updateHeaderState();
         }, 250);
     });
 
@@ -208,14 +212,17 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 const workList = [
-  { id: 'work13.html', title: '書籍横断検索アプリ', desc: '複数の図書館・書店を一括検索できるWebアプリ', img: './images/booksearch.png', link: './work13.html' },
-  { id: 'work9.html', title: '串かつ さじろう様<br>リニューアル', desc: '全6ページをフルスタック〜CMS化まで実装', img: './images/串かつ.png', link: './work9.html' },
-  { id: 'work12.html', title: '五料産業株式会社様<br>コーポレートサイト制作', desc: 'Figmaで作成されたデザインを忠実に再現。2つのデザイン案を実装', img: './images/Screenshot 2025-12-30 at 5.31.09.png', link: './work12.html' },
-  { id: 'work11.html', title: 'メディパ様（美容医療）<br>サービス全般制作', desc: 'Googleのビジネスコンテストで優勝したチームのサービス', img: './images/medipatop.png', link: './work11.html' },
-  { id: 'work3.html', title: 'HEART&BRAIN様 <br>LP制作', desc: 'パララックス効果で奥行きのある流行のデザイン', img: './images/HB.png', link: './work3.html' },
-  { id: 'work10.html', title: 'VEIN ENERGY様<br>コーポレート', desc: 'ロゴ制作から実装まで3日で納品。', img: './images/VE.png', link: './work10.html' },
-  { id: 'work.html', title: 'ぎふ就労支援センター様<br>リニューアル', desc: '大規模リニューアル案件', img: './images/Screenshot 2025-05-07 at 17.59.08.png', link: './work.html' },
-  { id: 'work5.html', title: 'Coffee <br>コーポレート', desc: 'Reactを使用したモダンなコーポレートサイト', img: './images/Screenshot 2025-07-13 at 8.58.05.png', link: './work5.html' },
+  { id: 'work14.html', title: '大手マッチングアプリ<br>チャット機能開発', desc: 'Laravel × React × Tailwind × WebSocketでリアルタイムチャットを実装', img: './images/chat-app-nda.jpg', link: './work14.html' },
+  { id: 'work3.html', title: 'HEART&BRAIN様<br>LP制作・既存サイト改修', desc: '役員層向けの信頼感と既存サイトとの統一感を重視したWordPress LP制作', img: './images/heartbrain-executive-compass.jpg', link: './work3.html' },
+  { id: 'work11.html', title: 'メディパ様（美容医療）<br>サービス全般制作', desc: 'Googleのビジネスコンテストで優勝したチームのサービス', img: './images/medipatop.jpg', link: './work11.html' },
+  { id: 'work9.html', title: '串かつ さじろう様<br>リニューアル', desc: '全6ページをフルスタック〜CMS化まで実装', img: './images/kushikatsu-sajiro.jpg', link: './work9.html' },
+  { id: 'work16.html', title: 'カタログ制作<br>業務効率化ツール', desc: 'Python × AI画像認識で、花のカタログ画像とExcelの差分確認を自動化', img: './images/catalog-automation-hero.jpg', link: './work16.html' },
+  { id: 'work17.html', title: 'カタログ企画の<br>AIエージェント化', desc: '約8時間の企画準備をAIエージェントで約1時間へ。AIと人の分担で業務を再設計', img: './images/catalog-ai-agents.jpg', link: './work17.html' },
+  { id: 'work15.html', title: 'LP制作<br>1ヶ月8件ペース', desc: 'デザインからログイン・DB・決済導線まで対応。ビジネスLPを高速制作', img: './images/lp-note-hero.jpg', link: './work15.html' },
+  { id: 'work13.html', title: '書籍横断検索アプリ', desc: '岐阜の図書館・書店を一括検索。マイページ導線も改善', img: './images/IMG_2566.jpeg', link: './work13.html' },
+  { id: 'work10.html', title: 'VEIN ENERGY様<br>コーポレート', desc: 'ロゴ制作から実装まで2日で納品', img: './images/vein-energy.jpg', link: './work10.html' },
+  { id: 'work12.html', title: '五料産業株式会社様<br>リニューアル', desc: 'ヒアリングからデザイン・実装まで一貫して担当', img: './images/goryo-top.jpg', link: './work12.html' },
+  { id: 'work18.html', title: 'TANDO様<br>サイト修正・改善', desc: 'スマホ対応・動画埋め込み・セクション追加を約2時間でスピード対応', img: './images/tando-pet-hero.jpg', link: './work18.html' },
 ];
 
 function renderOtherWorksSlider(currentId) {
@@ -225,7 +232,7 @@ function renderOtherWorksSlider(currentId) {
   workList.filter(w => w.id !== currentId).forEach(work => {
     const card = document.createElement('article');
     card.className = 'work-card';
-    const imgStyle = (work.img.includes('串かつ') || work.img.includes('medipatop') || work.img.includes('VE.png')) ? 'style="object-position: center top;"' : '';
+    const imgStyle = (work.img.includes('串かつ') || work.img.includes('medipatop') || work.img.includes('vein-energy.jpg') || work.img.includes('IMG_2566') || work.img.includes('Screenshot 2026-06-13 at 17.15.27') || work.img.includes('heartbrain-executive-compass') || work.img.includes('catalog-automation-hero')) ? 'style="object-position: center top;"' : '';
     card.innerHTML = `
       <div class="work-image">
         <img src="${work.img}" alt="${work.title}" loading="lazy" ${imgStyle}>
@@ -237,6 +244,7 @@ function renderOtherWorksSlider(currentId) {
         <h3 class="work-title">${work.title}</h3>
         <p class="work-description">${work.desc}</p>
       </div>
+      <a href="${work.link}" class="work-detail-link"><span>詳細を見る</span><span>→</span></a>
     `;
     sliderGrid.appendChild(card);
   });
@@ -280,137 +288,85 @@ if (document.querySelector('.related-works-grid')) {
 })();
 
 function setupArtCursor() {
-  document.querySelectorAll('#art-cursor').forEach(el => el.remove());
-  
-  const artCursor = document.createElement('div');
-  artCursor.id = 'art-cursor';
-  document.body.appendChild(artCursor);
-  
-  artCursor.style.opacity = '0';
-  artCursor.style.transform = 'scale(0)';
-  artCursor.style.pointerEvents = 'none';
-  
+  document.querySelectorAll('#art-cursor, #art-cursor-dot, #art-cursor-ring').forEach(el => el.remove());
+
+  const canUseCustomCursor = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  document.body.classList.remove('custom-cursor-enabled', 'cursor-hover', 'cursor-down');
+  if (!canUseCustomCursor) return;
+
+  const dot = document.createElement('div');
+  dot.id = 'art-cursor-dot';
+  dot.innerHTML = '<span class="art-cursor-dot-core"></span>';
+
+  const ring = document.createElement('div');
+  ring.id = 'art-cursor-ring';
+  ring.innerHTML = '<span class="art-cursor-ring-core"></span>';
+
+  document.body.appendChild(ring);
+  document.body.appendChild(dot);
+  document.body.classList.add('custom-cursor-enabled');
+
   let mouseX = window.innerWidth / 2;
   let mouseY = window.innerHeight / 2;
-  let cursorX = mouseX;
-  let cursorY = mouseY;
+  let dotX = mouseX;
+  let dotY = mouseY;
+  let ringX = mouseX;
+  let ringY = mouseY;
   let isVisible = false;
-  let shouldShow = false;
-  
-  const heroSection = document.querySelector('.parallax-hero-section');
-  const worksSection = document.querySelector('.works-section');
-  const worksHeader = worksSection ? worksSection.querySelector('.section-header') : null;
-  
-  if (!heroSection) return;
-  
-  function checkShouldShow() {
-    if (heroSection) {
-      const heroRect = heroSection.getBoundingClientRect();
-      if (mouseY >= heroRect.top && mouseY <= heroRect.bottom) return true;
-    }
-    if (worksHeader) {
-      const headerRect = worksHeader.getBoundingClientRect();
-      return mouseY > headerRect.top - 50;
-    }
-    return false;
+
+  const interactiveSelector = [
+    'a',
+    'button',
+    'input',
+    'textarea',
+    'select',
+    'label',
+    '[role="button"]',
+    '.work-card',
+    '.header-contact-icon',
+    '.nav-link',
+    '.work-link',
+    '.work-detail-link'
+  ].join(',');
+
+  function setVisible(visible) {
+    isVisible = visible;
+    const opacity = visible ? '1' : '0';
+    dot.style.opacity = opacity;
+    ring.style.opacity = opacity;
   }
-  
-  function isInHeroOrWorksSection() {
-    if (heroSection) {
-      const heroRect = heroSection.getBoundingClientRect();
-      if (mouseY >= heroRect.top && mouseY <= heroRect.bottom) return true;
-    }
-    if (worksSection) {
-      const sectionRect = worksSection.getBoundingClientRect();
-      if (mouseY >= sectionRect.top && mouseY <= sectionRect.bottom) return true;
-    }
-    return false;
-  }
-  
-  function updateCursorVisibility() {
-    const newShouldShow = checkShouldShow();
-    if (newShouldShow !== shouldShow) {
-      shouldShow = newShouldShow;
-      if (shouldShow && !isVisible) {
-        isVisible = true;
-        artCursor.style.transition = 'opacity 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
-        artCursor.style.opacity = '1';
-        artCursor.style.transform = 'scale(1)';
-      } else if (!shouldShow && isVisible) {
-        isVisible = false;
-        artCursor.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
-        artCursor.style.opacity = '0';
-        artCursor.style.transform = 'scale(0)';
-      }
-    }
-    
-    const isInHeroOrWorks = isInHeroOrWorksSection();
-    isInHeroOrWorks ? artCursor.classList.add('inner-dot-only') : artCursor.classList.remove('inner-dot-only');
-  }
-  
+
   function handleMouseMove(e) {
     mouseX = e.clientX;
     mouseY = e.clientY;
-    updateCursorVisibility();
+    if (!isVisible) setVisible(true);
+
+    const target = document.elementFromPoint(mouseX, mouseY);
+    document.body.classList.toggle('cursor-hover', !!target?.closest(interactiveSelector));
   }
-  
-  let scrollTimer = null;
-  function handleScroll() {
-    if (scrollTimer) return;
-    scrollTimer = requestAnimationFrame(() => {
-      updateCursorVisibility();
-      scrollTimer = null;
-    });
-  }
-  
+
   document.addEventListener('mousemove', handleMouseMove, { passive: true });
-  window.addEventListener('scroll', handleScroll, { passive: true });
-  
-  let resizeTimer;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => { updateCursorVisibility(); }, 100);
-  }, { passive: true });
-  
+  document.addEventListener('mouseleave', () => setVisible(false), { passive: true });
+  document.addEventListener('mouseenter', () => setVisible(true), { passive: true });
+  document.addEventListener('mousedown', () => document.body.classList.add('cursor-down'), { passive: true });
+  document.addEventListener('mouseup', () => document.body.classList.remove('cursor-down'), { passive: true });
+
   function animateCursor() {
     if (isVisible) {
-      cursorX += (mouseX - cursorX) * 0.35;
-      cursorY += (mouseY - cursorY) * 0.35;
-      
-      const isInHeroOrWorks = isInHeroOrWorksSection();
-      if (isInHeroOrWorks) {
-        artCursor.style.transform = `translate3d(${cursorX - 5}px, ${cursorY - 5}px, 0) scale(1)`;
-      } else {
-        artCursor.style.transform = `translate3d(${cursorX - 22}px, ${cursorY - 22}px, 0) scale(1)`;
-      }
+      // ドットはほぼ即追従、リングはゆっくり遅れて追いかける
+      dotX += (mouseX - dotX) * 0.6;
+      dotY += (mouseY - dotY) * 0.6;
+      ringX += (mouseX - ringX) * 0.13;
+      ringY += (mouseY - ringY) * 0.13;
+      dot.style.transform = `translate3d(${dotX - 3.5}px, ${dotY - 3.5}px, 0)`;
+      ring.style.transform = `translate3d(${ringX - 19}px, ${ringY - 19}px, 0)`;
     }
     requestAnimationFrame(animateCursor);
   }
-  
+
   animateCursor();
-  updateCursorVisibility();
 }
 setupArtCursor();
-
-function includeCommonParts() {
-    return fetch('footer.html')
-        .then(res => res.text())
-        .then(html => {
-            const footer = document.querySelector('footer.footer');
-            if (footer) {
-                footer.outerHTML = html;
-            } else {
-                document.body.insertAdjacentHTML('beforeend', html);
-            }
-            
-            // フッター挿入後にイベント再設定などが必要な場合はここで実行
-            // コピーイベントはdocument delegationで設定しているので再設定不要
-        });
-}
-
-includeCommonParts().then(() => {
-    setupArtCursor();
-});
 
 function smoothScrollTo(targetPosition, duration = 800) {
     const startPosition = window.pageYOffset;
